@@ -7,14 +7,6 @@ import java.util.Scanner;
 class Player {
 
 
-    public String RegisterPlayer() {
-
-        System.out.println("플레이어 이름을 입력하세요");
-        Scanner sc = new Scanner(System.in);
-        String name = sc.nextLine();
-        return name;
-
-    }
 
     public void Bot(int myMoney, int numStage) {
 
@@ -23,11 +15,18 @@ class Player {
     }
 }
 
-
-
 class GamePlay {
+    public String RegisterPlayer() {
+
+        System.out.println("플레이어 이름을 입력하세요");
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine();
+
+    }
     int myMoney = 100;
     int botMoney = 120;
+    int numStage = 1;
+    int turn = 1;
 
     public int randomNumber() {
         Random random = new Random();
@@ -35,7 +34,7 @@ class GamePlay {
 //        System.out.println(number);  // 임시 확인용. 실제 게임 중에는 보여지지 않음
     }
 
-    public void pick(String name) {
+    public void pick() {
 
 //       Todo: 선택
 
@@ -83,7 +82,7 @@ class GamePlay {
             }
         }
 
-        System.out.println(name +" 돈: " + myMoney + " 원");
+        System.out.println(player1 + " 돈: " + myMoney + " 원");
         System.out.println("상대방 돈: " + botMoney + " 원");
 
     }
@@ -100,35 +99,39 @@ class GamePlay {
         this.myMoney -= bet;
 //win(), lose()에선 this 안 붙여도 잘 돌아간다.. 어떤 경우에 this 가 필요한거지?
     }
-}
 
-public class OddEven {
-    public static void main(String[] args) throws InterruptedException {
-        int numStage = 1;
-        Player player = new Player();
-        String player1 = player.RegisterPlayer();
-
-        GamePlay game = new GamePlay();
-        while (game.myMoney != 0 && game.botMoney != 0) {
-            game.pick(player1);
-            System.out.println(game.myMoney + "   " + game.botMoney);
-
+    public void repeat() {
+        while (myMoney != 0 && botMoney != 0) {
+            GamePlay game = new GamePlay();
+            game.pick();
+            this.turn += 1;
         }
+    }
 
-        //todo : 지면 게임 끝, 이기면 새로운 상대..
-
+    public void judge() {
+        GamePlay game = new GamePlay();
         if (game.myMoney == 0) {
             System.out.println(player1 + " 패배!!");
+            System.out.println("Level : " + numStage + "   " + "턴 수 : " + turn);
+
         }
         if (game.myMoney != 0) {
             System.out.println(player1 + " 승리!!");
-            Thread.sleep(2000);
+            turn = 0;
             System.out.println("HERE COMES A NEW CHALLENGER");
             numStage++;
             player.Bot(game.myMoney, numStage);
         }
-//        todo: 다음 레벨 상대
+    }
+}
 
+public class OddEven {
+    public static void main(String[] args) {
+        GamePlay game = new GamePlay();
+        game.RegisterPlayer();
+        System.out.println("---");
+        game.repeat();
+        game.judge();
     }
 }
 // todo : 플레이어 홀짝 입력 후 배팅금 입력
