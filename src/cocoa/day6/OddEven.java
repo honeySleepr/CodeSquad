@@ -11,16 +11,18 @@ class Player {
 
         System.out.println("플레이어 이름을 입력하세요");
         Scanner sc = new Scanner(System.in);
-        return sc.nextLine();
+        String name = sc.nextLine();
+        return name;
 
     }
 
-    public void Bot(int numStage) {
-        GamePlay bot = new GamePlay();
-        bot.botMoney = (int) (bot.myMoney * Math.pow(1.2, numStage));
-        System.out.println(bot.botMoney);
+    public void Bot(int myMoney, int numStage) {
+
+        int botMoney = (int) (myMoney * Math.pow(1.2, numStage));
+        System.out.println(botMoney);
     }
 }
+
 
 
 class GamePlay {
@@ -33,9 +35,7 @@ class GamePlay {
 //        System.out.println(number);  // 임시 확인용. 실제 게임 중에는 보여지지 않음
     }
 
-    public void pick() {
-        Bot bot = new Bot();
-        Player my = new Player();
+    public void pick(String name) {
 
 //       Todo: 선택
 
@@ -83,7 +83,7 @@ class GamePlay {
             }
         }
 
-        System.out.println("내 돈: " + myMoney + " 원");
+        System.out.println(name +" 돈: " + myMoney + " 원");
         System.out.println("상대방 돈: " + botMoney + " 원");
 
     }
@@ -110,7 +110,7 @@ public class OddEven {
 
         GamePlay game = new GamePlay();
         while (game.myMoney != 0 && game.botMoney != 0) {
-            game.pick();
+            game.pick(player1);
             System.out.println(game.myMoney + "   " + game.botMoney);
 
         }
@@ -124,7 +124,8 @@ public class OddEven {
             System.out.println(player1 + " 승리!!");
             Thread.sleep(2000);
             System.out.println("HERE COMES A NEW CHALLENGER");
-            player.Bot(numStage++);
+            numStage++;
+            player.Bot(game.myMoney, numStage);
         }
 //        todo: 다음 레벨 상대
 
