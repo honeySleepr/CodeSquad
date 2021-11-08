@@ -1,7 +1,9 @@
 package cocoa.day6;
 
+import java.sql.Time;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 
 class Player {
@@ -18,15 +20,15 @@ class GamePlay {
     int myMoney = 100;
     int botMoney = 120;
     int numStage = 1;
-    int turn = 1;
-String player1;
-    public String RegisterPlayer() {
+    int turn = 0;
+    String player1;
+
+    public void RegisterPlayer() {
 
         System.out.println("플레이어 이름을 입력하세요");
         Scanner sc = new Scanner(System.in);
         player1 = sc.nextLine();
     }
-
 
 
     public int randomNumber() {
@@ -35,7 +37,7 @@ String player1;
 //        System.out.println(number);  // 임시 확인용. 실제 게임 중에는 보여지지 않음
     }
 
-    public void pick(String player1) {
+    public void pick() {
 
 //       Todo: 선택
 
@@ -82,8 +84,8 @@ String player1;
                 win(bet);
             }
         }
-
-        System.out.println( player1 + " 돈: " + myMoney + " 원");
+        turn++;
+        System.out.println(player1 + " 돈: " + myMoney + " 원");
         System.out.println("상대방 돈: " + botMoney + " 원");
 
     }
@@ -91,26 +93,25 @@ String player1;
 //      Todo: 점수 계산
 
     public void win(int bet) {
-        this.botMoney -= bet;
-        this.myMoney += bet;
+        botMoney -= bet;
+        myMoney += bet;
     }
 
     public void lose(int bet) {
-        this.botMoney += bet;
-        this.myMoney -= bet;
-//win(), lose()에선 this 안 붙여도 잘 돌아간다.. 어떤 경우에 this 가 필요한거지?
+        botMoney += bet;
+        myMoney -= bet;
     }
 
-    public void repeat(String player1) {
+    public void repeat() {
         while (myMoney != 0 && botMoney != 0) {
-            pick(player1);
-            this.turn += 1;
+            pick();
         }
+        judge();
     }
 
-    public void judge(String player1) {
-
+    public void judge() {
         Player player = new Player();
+
         if (myMoney == 0) {
             System.out.println(player1 + " 패배!!");
             System.out.println("Level : " + numStage + "   " + "턴 수 : " + turn);
@@ -118,8 +119,10 @@ String player1;
         }
         if (myMoney != 0) {
             System.out.println(player1 + " 승리!!");
-            turn = 0;
+            System.out.println("Level : " + numStage + "   " + "턴 수 : " + turn);
+            System.out.println("-------------------------");
             System.out.println("HERE COMES A NEW CHALLENGER");
+            turn = 0;
             numStage++;
             player.Bot(myMoney, numStage);
         }
@@ -129,11 +132,11 @@ String player1;
 public class OddEven {
     public static void main(String[] args) {
         GamePlay game = new GamePlay();
-        String player1 = game.RegisterPlayer();
-        game.pick(player1);
-        System.out.println("---");
-        game.repeat(player1);
-        game.judge(player1);
+        game.RegisterPlayer();
+        while (game.myMoney != 0 ) {
+            game.repeat();
+        }
+
     }
 }
 // todo : 플레이어 홀짝 입력 후 배팅금 입력
