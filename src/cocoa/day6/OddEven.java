@@ -4,84 +4,93 @@ import java.util.Random;
 import java.util.Scanner;
 
 class Player {
-    int myMoney = 100;
 
 
     public String RegisterPlayer() {
 
         System.out.println("플레이어 이름을 입력하세요");
         Scanner sc = new Scanner(System.in);
-        String name = sc.nextLine();
-        System.out.println("Player #1 :" + name);  // 지워도 될듯
+        return sc.nextLine();
 
-        return name;
     }
-
-
 }
 
 class Bot {
-    int botMoney = 120;
+
 //    Todo : 다음 단계 Bot 설계
-
-
 }
 
 class GamePlay {
+    int myMoney = 100;
+    int botMoney = 120;
+
     public int randomNumber() {
         Random random = new Random();
-        int number = random.nextInt(20);
-        System.out.println(number);  // 임시 확인용. 실제 게임 중에는 보여지지 않음
-        return number;
+        return random.nextInt(20);
+//        System.out.println(number);  // 임시 확인용. 실제 게임 중에는 보여지지 않음
     }
 
     public void pick() {
         Bot bot = new Bot();
         Player my = new Player();
-//        선택
+
+//       Todo: 선택
+
         System.out.println("홀: 1 , 짝: 2 입력");
         Scanner sc = new Scanner(System.in);
         int pick = sc.nextInt();
-        while(pick != 1 && pick != 2) {
+        while (pick != 1 && pick != 2) {
             System.out.println(" 홀: 1 , 짝: 2 중에 하나를 입력해주세요");
             pick = sc.nextInt();
         }
-//        베팅
 
+//        Todo: 베팅
 
-//        System.out.println(num);
-        System.out.println("얼마를 베팅하시겠습니까? 최대 베팅 가능 금액:" + Math.min(my.myMoney, bot.botMoney));
+        System.out.println("얼마를 베팅하시겠습니까? 최대 베팅 가능 금액:" + Math.min(myMoney, botMoney));
         Scanner sc1 = new Scanner(System.in);
         int bet = sc1.nextInt();
+
+//      Todo : 판별
 
         int number = randomNumber();
         if (pick == 1) {
             System.out.println("홀을 선택하셨습니다");
-            System.out.println("과연?");
             if (number % 2 == 1) {
                 System.out.println("홀! 정답입니다!");
-//                myMoney
+                win(bet);
             }
             if (number % 2 == 0) {
                 System.out.println("짝! 틀렸습니다ㅠㅠ");
-
+                lose(bet);
             }
         }
         if (pick == 2) {
             System.out.println("짝을 선택하셨습니다");
-            System.out.println("과연?");
-            System.out.println(number);
             if (number % 2 == 1) {
                 System.out.println("홀! 틀렸습니다ㅠㅠ");
-
+                lose(bet);
             }
             if (number % 2 == 0) {
                 System.out.println("짝! 정답입니다!");
-
+                win(bet);
             }
         }
+
+        System.out.println("내돈:" + myMoney + "상대방 돈:" + botMoney);
     }
 
+//      Todo: 점수 계산
+
+    public void win(int bet) {
+        this.botMoney -= bet;
+        this.myMoney += bet;
+//this 안 붙여도 여기선 되던데.. 어떤 경우에 this 가 필요할까?
+    }
+    public void lose(int bet) {
+        this.botMoney += bet;
+        this.myMoney -= bet;
+//this 안 붙여도 여기선 되던데.. 어떤 경우에 this 가 필요할까?
+    }
 }
 
 public class OddEven {
