@@ -60,14 +60,14 @@ class GamePlay {
                 win(bet);
             }
             if (number % 2 == 0) {
-                System.out.println("짝! 틀렸습니다ㅠㅠ");
+                System.out.println("짝! 틀렸습니다!");
                 lose(bet);
             }
         }
         if (pick == 2) {
             System.out.println("짝을 선택하셨습니다");
             if (number % 2 == 1) {
-                System.out.println("홀! 틀렸습니다ㅠㅠ");
+                System.out.println("홀! 틀렸습니다!");
                 lose(bet);
             }
             if (number % 2 == 0) {
@@ -76,7 +76,9 @@ class GamePlay {
             }
         }
 
-        System.out.println("내돈:" + myMoney + "상대방 돈:" + botMoney);
+        System.out.println("내 돈: " + myMoney + " 원");
+        System.out.println("상대방 돈: " + botMoney + " 원");
+
     }
 
 //      Todo: 점수 계산
@@ -84,12 +86,12 @@ class GamePlay {
     public void win(int bet) {
         this.botMoney -= bet;
         this.myMoney += bet;
-//this 안 붙여도 여기선 되던데.. 어떤 경우에 this 가 필요할까?
     }
+
     public void lose(int bet) {
         this.botMoney += bet;
         this.myMoney -= bet;
-//this 안 붙여도 여기선 되던데.. 어떤 경우에 this 가 필요할까?
+//win(), lose()에선 this 안 붙여도 잘 돌아간다.. 어떤 경우에 this 가 필요한거지?
     }
 }
 
@@ -98,8 +100,11 @@ public class OddEven {
 
         Player player = new Player();
         player.RegisterPlayer();
+
         GamePlay game = new GamePlay();
-        game.pick();
+        while (game.myMoney != 0 && game.botMoney != 0) {
+            game.pick();
+        }
     }
 }
 // todo : 플레이어 홀짝 입력 후 배팅금 입력
