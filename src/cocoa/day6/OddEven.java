@@ -7,7 +7,6 @@ import java.util.Scanner;
 class Player {
 
 
-
     public void Bot(int myMoney, int numStage) {
 
         int botMoney = (int) (myMoney * Math.pow(1.2, numStage));
@@ -16,17 +15,19 @@ class Player {
 }
 
 class GamePlay {
-    public String RegisterPlayer() {
-
-        System.out.println("플레이어 이름을 입력하세요");
-        Scanner sc = new Scanner(System.in);
-        return sc.nextLine();
-
-    }
     int myMoney = 100;
     int botMoney = 120;
     int numStage = 1;
     int turn = 1;
+String player1;
+    public String RegisterPlayer() {
+
+        System.out.println("플레이어 이름을 입력하세요");
+        Scanner sc = new Scanner(System.in);
+        player1 = sc.nextLine();
+    }
+
+
 
     public int randomNumber() {
         Random random = new Random();
@@ -34,7 +35,7 @@ class GamePlay {
 //        System.out.println(number);  // 임시 확인용. 실제 게임 중에는 보여지지 않음
     }
 
-    public void pick() {
+    public void pick(String player1) {
 
 //       Todo: 선택
 
@@ -82,7 +83,7 @@ class GamePlay {
             }
         }
 
-        System.out.println(player1 + " 돈: " + myMoney + " 원");
+        System.out.println( player1 + " 돈: " + myMoney + " 원");
         System.out.println("상대방 돈: " + botMoney + " 원");
 
     }
@@ -100,27 +101,27 @@ class GamePlay {
 //win(), lose()에선 this 안 붙여도 잘 돌아간다.. 어떤 경우에 this 가 필요한거지?
     }
 
-    public void repeat() {
+    public void repeat(String player1) {
         while (myMoney != 0 && botMoney != 0) {
-            GamePlay game = new GamePlay();
-            game.pick();
+            pick(player1);
             this.turn += 1;
         }
     }
 
-    public void judge() {
-        GamePlay game = new GamePlay();
-        if (game.myMoney == 0) {
+    public void judge(String player1) {
+
+        Player player = new Player();
+        if (myMoney == 0) {
             System.out.println(player1 + " 패배!!");
             System.out.println("Level : " + numStage + "   " + "턴 수 : " + turn);
 
         }
-        if (game.myMoney != 0) {
+        if (myMoney != 0) {
             System.out.println(player1 + " 승리!!");
             turn = 0;
             System.out.println("HERE COMES A NEW CHALLENGER");
             numStage++;
-            player.Bot(game.myMoney, numStage);
+            player.Bot(myMoney, numStage);
         }
     }
 }
@@ -128,10 +129,11 @@ class GamePlay {
 public class OddEven {
     public static void main(String[] args) {
         GamePlay game = new GamePlay();
-        game.RegisterPlayer();
+        String player1 = game.RegisterPlayer();
+        game.pick(player1);
         System.out.println("---");
-        game.repeat();
-        game.judge();
+        game.repeat(player1);
+        game.judge(player1);
     }
 }
 // todo : 플레이어 홀짝 입력 후 배팅금 입력
