@@ -1,20 +1,7 @@
 package cocoa.day6;
 
-import java.sql.Time;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
-
-
-class Player {
-
-
-    public void Bot(int myMoney, int numStage) {
-
-        int botMoney = (int) (myMoney * Math.pow(1.2, numStage));
-        System.out.println(botMoney);
-    }
-}
 
 class GamePlay {
     int myMoney = 100;
@@ -30,6 +17,10 @@ class GamePlay {
         player1 = sc.nextLine();
     }
 
+    public void Bot() {
+        botMoney = (int) (myMoney * Math.pow(1.2, numStage));
+        System.out.println(botMoney);
+    }
 
     public int randomNumber() {
         Random random = new Random();
@@ -57,6 +48,7 @@ class GamePlay {
         while (bet > Math.min(myMoney, botMoney)) {
             System.out.println("최대 베팅 가능 금액은 " + Math.min(myMoney, botMoney) + "원 입니다. 얼마를 베팅하시겠습니까?");
             bet = sc1.nextInt();
+
         }
 
 //      Todo : 판별
@@ -64,15 +56,18 @@ class GamePlay {
         int number = randomNumber();
         if (pick == 1) {
             System.out.println("홀을 선택하셨습니다");
-            if (number % 2 == 1) {
-                System.out.println("홀! 정답입니다!");
-                win(bet);
-            }
-            if (number % 2 == 0) {
-                System.out.println("짝! 틀렸습니다!");
-                lose(bet);
-            }
+            System.out.println("홀! 정답입니다!");  //테스트용
+            win(bet);                           //테스트용
         }
+//            if (number % 2 == 1) {
+//                System.out.println("홀! 정답입니다!");
+//                win(bet);
+//            }
+//            if (number % 2 == 0) {
+//                System.out.println("짝! 틀렸습니다!");
+//                lose(bet);
+//            }
+
         if (pick == 2) {
             System.out.println("짝을 선택하셨습니다");
             if (number % 2 == 1) {
@@ -110,21 +105,26 @@ class GamePlay {
     }
 
     public void judge() {
-        Player player = new Player();
+        if (numStage < 8) {
+            if (myMoney == 0) {
+                System.out.println(player1 + " 패배!!");
+                System.out.println("Level : " + numStage + "   " + "턴 수 : " + turn);
+            }
 
-        if (myMoney == 0) {
-            System.out.println(player1 + " 패배!!");
-            System.out.println("Level : " + numStage + "   " + "턴 수 : " + turn);
-
+            if (myMoney != 0) {
+                System.out.println(player1 + " 승리!!");
+                System.out.println("Level : " + numStage + "   " + "턴 수 : " + turn);
+                System.out.println("-------------------------");
+                System.out.println("HERE COMES A NEW CHALLENGER");
+                turn = 0;
+                numStage++;
+                Bot();
+            }
         }
-        if (myMoney != 0) {
-            System.out.println(player1 + " 승리!!");
+        if (numStage == 8) {
+            System.out.println(player1 + " 최종 우승!!");
             System.out.println("Level : " + numStage + "   " + "턴 수 : " + turn);
-            System.out.println("-------------------------");
-            System.out.println("HERE COMES A NEW CHALLENGER");
-            turn = 0;
             numStage++;
-            player.Bot(myMoney, numStage);
         }
     }
 }
@@ -133,7 +133,8 @@ public class OddEven {
     public static void main(String[] args) {
         GamePlay game = new GamePlay();
         game.RegisterPlayer();
-        while (game.myMoney != 0 ) {
+        game.numStage = 8; // 테스트용
+        while (game.myMoney != 0 && game.numStage < 9) {
             game.repeat();
         }
 
