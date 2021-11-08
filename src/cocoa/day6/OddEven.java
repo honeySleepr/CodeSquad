@@ -3,6 +3,7 @@ package cocoa.day6;
 import java.util.Random;
 import java.util.Scanner;
 
+
 class Player {
 
 
@@ -13,12 +14,14 @@ class Player {
         return sc.nextLine();
 
     }
+
+    public void Bot(int numStage) {
+        GamePlay bot = new GamePlay();
+        bot.botMoney = (int) (bot.myMoney * Math.pow(1.2, numStage));
+        System.out.println(bot.botMoney);
+    }
 }
 
-class Bot {
-
-//    Todo : 다음 단계 Bot 설계
-}
 
 class GamePlay {
     int myMoney = 100;
@@ -36,19 +39,23 @@ class GamePlay {
 
 //       Todo: 선택
 
-        System.out.println("홀: 1 , 짝: 2 입력");
+        System.out.println("[홀: 1] , [짝: 2] 입력");
         Scanner sc = new Scanner(System.in);
         int pick = sc.nextInt();
         while (pick != 1 && pick != 2) {
-            System.out.println(" 홀: 1 , 짝: 2 중에 하나를 입력해주세요");
+            System.out.println(" [홀: 1] , [짝: 2] 중에 하나를 입력해주세요");
             pick = sc.nextInt();
         }
 
 //        Todo: 베팅
 
-        System.out.println("얼마를 베팅하시겠습니까? 최대 베팅 가능 금액:" + Math.min(myMoney, botMoney));
+        System.out.println("얼마를 베팅하시겠습니까? 최대 베팅 가능 금액:" + Math.min(myMoney, botMoney) + " 원");
         Scanner sc1 = new Scanner(System.in);
         int bet = sc1.nextInt();
+        while (bet > Math.min(myMoney, botMoney)) {
+            System.out.println("최대 베팅 가능 금액은 " + Math.min(myMoney, botMoney) + "원 입니다. 얼마를 베팅하시겠습니까?");
+            bet = sc1.nextInt();
+        }
 
 //      Todo : 판별
 
@@ -96,15 +103,31 @@ class GamePlay {
 }
 
 public class OddEven {
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws InterruptedException {
+        int numStage = 1;
         Player player = new Player();
-        player.RegisterPlayer();
+        String player1 = player.RegisterPlayer();
 
         GamePlay game = new GamePlay();
         while (game.myMoney != 0 && game.botMoney != 0) {
             game.pick();
+            System.out.println(game.myMoney + "   " + game.botMoney);
+
         }
+
+        //todo : 지면 게임 끝, 이기면 새로운 상대..
+
+        if (game.myMoney == 0) {
+            System.out.println(player1 + " 패배!!");
+        }
+        if (game.myMoney != 0) {
+            System.out.println(player1 + " 승리!!");
+            Thread.sleep(2000);
+            System.out.println("HERE COMES A NEW CHALLENGER");
+            player.Bot(numStage++);
+        }
+//        todo: 다음 레벨 상대
+
     }
 }
 // todo : 플레이어 홀짝 입력 후 배팅금 입력
