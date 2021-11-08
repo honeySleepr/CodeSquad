@@ -16,8 +16,10 @@ class User {
         String Pw = sc.nextLine();
         System.out.println("비밀번호를 다시 한번 입력하세요");
         String Pw2 = sc.nextLine();
-        while (Pw != Pw2) {
+        while (!Pw.equals(Pw2)) {
             System.out.println("비밀번호가 다릅니다. 다시 한번 입력하세요");
+            System.out.println("Pw :"+Pw+"/ Pw2:"+Pw2);
+
             Pw2 = sc.nextLine();
         }
         System.out.println("ID:" + Id);
@@ -50,3 +52,4 @@ public class Main {
         a.RegisterUser();
     }
 }
+//ddddd
