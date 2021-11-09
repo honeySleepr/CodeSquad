@@ -3,6 +3,16 @@ package cocoa.day6;
 import java.util.Random;
 import java.util.Scanner;
 
+public class OddEven {
+    public static void main(String[] args) {
+        GamePlay game = new GamePlay();
+        game.RegisterPlayer();
+        while (game.myMoney != 0 && game.numStage < 9) {
+            game.repeat();
+        }
+    }
+}
+
 class GamePlay {
     int myMoney = 100;
     int botMoney = 120;
@@ -12,7 +22,7 @@ class GamePlay {
 
     public void RegisterPlayer() {
 
-        System.out.println("플레이어 이름을 입력하세요");
+        System.out.print("플레이어 이름을 입력하세요 : ");
         Scanner sc = new Scanner(System.in);
         player1 = sc.nextLine();
     }
@@ -127,12 +137,4 @@ class GamePlay {
     }
 }
 
-public class OddEven {
-    public static void main(String[] args) {
-        GamePlay game = new GamePlay();
-        game.RegisterPlayer();
-        while (game.myMoney != 0 && game.numStage < 9) {
-            game.repeat();
-        }
-    }
-}
+
