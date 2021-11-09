@@ -19,7 +19,6 @@ class GamePlay {
     int numStage = 1;
     int turn = 0;
     String player1;
-
     public void RegisterPlayer() {
 
         System.out.print("플레이어 이름을 입력하세요 : ");
