@@ -8,16 +8,14 @@ public class Game {
     int botMoney;
     int numStage;        //todo : 테스트용
     int turn;
-    Player player; //  호눅스는 왜 private 을 쓰는걸까?
+    Player player = new Player();//  호눅스는 왜 private 을 쓰는걸까?
 
-    // 생성자
-    public Game() {
+    public Game() {             // 생성자!
         this.myMoney = 100;
         this.botMoney = 120;
         this.numStage = 1;
         this.turn = 0;
-        player = new Player(this);
-        player.registerPlayer();
+
     }
 
     public void bot() {
@@ -39,7 +37,7 @@ public class Game {
         return random.nextInt(20) + 1;
     }
 
-    public void repeat() {
+    public void play() {
         while (myMoney != 0 && botMoney != 0) {
             pick();
         }
@@ -129,7 +127,7 @@ public class Game {
                 turn = 0;
                 numStage++;
                 Game game = new Game();
-//                player.bot();
+                bot();
             }
         }
         if (numStage == 8) {
