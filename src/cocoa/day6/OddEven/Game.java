@@ -1,26 +1,36 @@
 package cocoa.day6.OddEven;
 
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Game {
     int myMoney; //대입은 생성할 때 하자
     int botMoney;
     int numStage;        //todo : 테스트용
     int turn;
-    Player player = new Player();//  호눅스는 왜 private 을 쓰는걸까?
+    String player1;
+    List<Integer> money;
 
-    public Game() {             // 생성자!
+    public Game() {           // 생성자!
         this.myMoney = 100;
         this.botMoney = 120;
-        this.numStage = 1;
+        this.numStage = 5;
         this.turn = 0;
+money = new ArrayList<>();
+        registerPlayer();
+    }
 
+    public void registerPlayer() {
+
+        System.out.print("플레이어 이름을 입력하세요 : ");
+        Scanner sc = new Scanner(System.in);
+        player1 = sc.nextLine();
+//        sc.close();   ????
     }
 
     public void bot() {
         botMoney = (int) (getMyMoney() * Math.pow(1.2, numStage));
         System.out.println(">>> 상대방 소지금 : " + getBotMoney() + " 원");
+        play();
     }
 
     public int getMyMoney() {
@@ -97,7 +107,8 @@ public class Game {
             }
         }
         turn++;
-        System.out.println("<소지금>  " + player.player1 + " : " + myMoney + " 원" + "   상대방 : " + botMoney + " 원");
+        money.add(myMoney);
+        System.out.println("<소지금>  " + player1 + " : " + myMoney + " 원" + "   상대방 : " + botMoney + " 원");
     }
 
     public void win(int bet) {
@@ -114,30 +125,35 @@ public class Game {
     public void finalResult() {
         if (numStage < 8) {
             if (myMoney == 0) {
-                System.out.print(player.player1 + " 패배!!");
+                System.out.print(player1 + " 패배!!");
                 System.out.println("  Level : " + numStage + "   " + "턴 수 : " + turn);
+                ranking();
             }
 
             if (myMoney != 0) {
-                System.out.print(player.player1 + " 승리!!");
+                System.out.print(player1 + " 승리!!");
                 System.out.println("  Level : " + numStage + "   " + "턴 수 : " + turn);
                 System.out.println("----------------------------");
                 System.out.println("HERE COMES A NEW CHALLENGER");
                 System.out.println("----------------------------");
                 turn = 0;
                 numStage++;
-                Game game = new Game();
                 bot();
             }
         }
         if (numStage == 8) {
             System.out.println("-------------------");
-            System.out.println(player.player1 + " 최종 우승!!");
+            System.out.println(player1 + " 최종 우승!!");
             System.out.println("-------------------");
             System.out.println("Level : " + numStage + "   " + "턴 수 : " + turn);
-            System.out.println(myMoney);
             numStage++;
+            ranking();
         }
+
+    }
+
+    public void ranking() {
+        System.out.println(Collections.max(money));
 
     }
 }

@@ -12,7 +12,7 @@ public class Player {
         System.out.print("플레이어 이름을 입력하세요 : ");
         Scanner sc = new Scanner(System.in);
         player1 = sc.nextLine();
-//        sc.close();   ????
+//
     }
 
 }
