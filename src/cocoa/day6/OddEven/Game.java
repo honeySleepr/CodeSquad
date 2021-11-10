@@ -1,5 +1,8 @@
 package cocoa.day6.OddEven;
 
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Game {
@@ -7,15 +10,19 @@ public class Game {
     int botMoney;
     int numStage;        //todo : 테스트용
     int turn;
+    int totalTurn;
     String player1;
     List<Integer> money;
+    List<String> record;
 
     public Game() {           // 생성자!
         this.myMoney = 100;
         this.botMoney = 120;
         this.numStage = 5;
         this.turn = 0;
-money = new ArrayList<>();
+        this.totalTurn = 0;
+        money = new ArrayList<>();
+        record = new ArrayList<>();
         registerPlayer();
     }
 
@@ -72,15 +79,15 @@ money = new ArrayList<>();
             System.out.println("양수를 입력해주세요. 최대 베팅 가능 금액 : " + Math.min(myMoney, botMoney) + " 원");
             bet = sc.nextInt();
         }
-//        sc.close();   ????
+//        sc.close();   ?
         if (bet > Math.min(myMoney, botMoney)) {
             System.out.println("최대 금액으로 베팅 : " + Math.min(myMoney, botMoney) + " 원");
             bet = Math.min(myMoney, botMoney);
 
         }
-//        sc.close();   ????
+//        sc.close();   ?
         result(number, pick, bet);
-//        sc.close();   ????
+//        sc.close();   ?
     }
 
     public void result(int number, int pick, int bet) {
@@ -107,8 +114,11 @@ money = new ArrayList<>();
             }
         }
         turn++;
+        totalTurn += turn;
         money.add(myMoney);
         System.out.println("<소지금>  " + player1 + " : " + myMoney + " 원" + "   상대방 : " + botMoney + " 원");
+        System.out.println(money);
+
     }
 
     public void win(int bet) {
@@ -153,7 +163,21 @@ money = new ArrayList<>();
     }
 
     public void ranking() {
-        System.out.println(Collections.max(money));
+        writeFile();
+        System.out.println(" 이름      최고금액        턴수");
+        System.out.println(player1 + "       " +
+                Collections.max(money) + "          " + totalTurn);
 
+    }
+
+
+    public void writeFile() {
+        try {
+            FileWriter fw = new FileWriter("record.csv");
+            fw.write(String.valueOf(record));
+            fw.close();
+        } catch (IOException e) {
+            System.out.println();
+        }
     }
 }
