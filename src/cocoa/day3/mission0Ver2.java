@@ -10,11 +10,12 @@ class RandomPick2 {
 
     public int ask() {
         int people = 0;
+        Scanner sc = new Scanner(System.in);
         while (people < 1 || people > 33) {
             System.out.println("몇 명을 뽑을까요?(33명 이내)");
-            Scanner sc = new Scanner(System.in);
             people = sc.nextInt();
         }
+        sc.close();
         return people;
     }
 
@@ -47,8 +48,7 @@ public class mission0Ver2 {
     public static void main(String[] args) {
         RandomPick2 r = new RandomPick2();
         int num = r.ask();
-        int[] index = new int[num];
-        index = r.shuffle(num);
+        int[] index = r.shuffle(num);
         r.print(index);
 
     }
