@@ -10,7 +10,7 @@ public class OddEven {
         while (game.myMoney != 0 && game.numStage < 9) {
             game.repeat();
         }
-    } ㅇㅇㅇ
+    }
 }
 
 class GamePlay {
