@@ -16,7 +16,7 @@ public class OddEven {
 class GamePlay {
     int myMoney = 100;
     int botMoney = 120;
-    int numStage = 1;
+    int numStage = 8;           //todo : 테스트용
     int turn = 0;
     String player1;
     public void RegisterPlayer() {
@@ -44,8 +44,10 @@ class GamePlay {
     }
 
     public void pick() {
-
+        int number = randomNumber();
+        System.out.println("blackSheepWall : " + number);           // todo: 테스트용
         System.out.println("[홀: 1] , [짝: 2] 입력");
+
         Scanner sc = new Scanner(System.in);
         int pick = sc.nextInt();
 
@@ -66,11 +68,10 @@ class GamePlay {
             System.out.println("최대 금액으로 베팅 : " + Math.min(myMoney, botMoney) + " 원");
             bet = Math.min(myMoney, botMoney);
         }
-        result(pick, bet);
+        result(number, pick, bet);
     }
 
-    public void result(int pick, int bet) {
-        int number = randomNumber();
+    public void result(int number, int pick, int bet) {
         if (pick == 1) {
             System.out.println("홀을 선택하셨습니다");
             if (number % 2 == 1) {
