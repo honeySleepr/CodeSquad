@@ -24,6 +24,7 @@ public class Game {
         money = new ArrayList<>();
         record = new ArrayList<>();
         registerPlayer();
+
     }
 
     public void registerPlayer() {
@@ -31,7 +32,7 @@ public class Game {
         System.out.print("플레이어 이름을 입력하세요 : ");
         Scanner sc = new Scanner(System.in);
         player1 = sc.nextLine();
-//        sc.close();   ????
+
     }
 
     public void bot() {
@@ -79,7 +80,7 @@ public class Game {
             System.out.println("양수를 입력해주세요. 최대 베팅 가능 금액 : " + Math.min(myMoney, botMoney) + " 원");
             bet = sc.nextInt();
         }
-//        sc.close();   ?
+//        sc.close();
         if (bet > Math.min(myMoney, botMoney)) {
             System.out.println("최대 금액으로 베팅 : " + Math.min(myMoney, botMoney) + " 원");
             bet = Math.min(myMoney, botMoney);
