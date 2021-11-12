@@ -11,29 +11,30 @@ public class Game {
     int numStage;        //todo : 테스트용
     int turn;
     int totalTurn;
-    String player1;
+    //    String player1;
     List<Integer> money;
     List<String> record;
 
     public Game() {           // 생성자!
         this.myMoney = 100;
         this.botMoney = 120;
-        this.numStage = 5;
+        this.numStage = 1;
         this.turn = 0;
         this.totalTurn = 0;
         money = new ArrayList<>();
         record = new ArrayList<>();
-        registerPlayer();
-
+        Player player = new Player();
+        player.registerPlayer();
+// todo : Player.java 로 부터 플레이어 이름 가져오기 성공!
     }
 
-    public void registerPlayer() {
-
-        System.out.print("플레이어 이름을 입력하세요 : ");
-        Scanner sc = new Scanner(System.in);
-        player1 = sc.nextLine();
-
-    }
+//    public void registerPlayer() {
+//
+//        System.out.print("플레이어 이름을 입력하세요 : ");
+//        Scanner sc = new Scanner(System.in);
+//        Player.player1 = sc.nextLine();
+//
+//    }
 
     public void bot() {
         botMoney = (int) (getMyMoney() * Math.pow(1.2, numStage));
@@ -117,8 +118,8 @@ public class Game {
         turn++;
         totalTurn += turn;
         money.add(myMoney);
-        System.out.println("<소지금>  " + player1 + " : " + myMoney + " 원" + "   상대방 : " + botMoney + " 원");
-        System.out.println(money);
+        System.out.println("<소지금>  " + Player.player1 + " : " + myMoney + " 원" + "   상대방 : " + botMoney + " 원");
+//        System.out.println(money);
 
     }
 
@@ -136,13 +137,13 @@ public class Game {
     public void finalResult() {
         if (numStage < 8) {
             if (myMoney == 0) {
-                System.out.print(player1 + " 패배!!");
+                System.out.print(Player.player1 + " 패배!!");
                 System.out.println("  Level : " + numStage + "   " + "턴 수 : " + turn);
                 ranking();
             }
 
             if (myMoney != 0) {
-                System.out.print(player1 + " 승리!!");
+                System.out.print(Player.player1 + " 승리!!");
                 System.out.println("  Level : " + numStage + "   " + "턴 수 : " + turn);
                 System.out.println("----------------------------");
                 System.out.println("HERE COMES A NEW CHALLENGER");
@@ -154,7 +155,7 @@ public class Game {
         }
         if (numStage == 8) {
             System.out.println("-------------------");
-            System.out.println(player1 + " 최종 우승!!");
+            System.out.println(Player.player1 + " 최종 우승!!");
             System.out.println("-------------------");
             System.out.println("Level : " + numStage + "   " + "턴 수 : " + turn);
             numStage++;
@@ -166,19 +167,24 @@ public class Game {
     public void ranking() {
         writeFile();
         System.out.println(" 이름      최고금액        턴수");
-        System.out.println(player1 + "       " +
+        System.out.println(Player.player1 + "       " +
                 Collections.max(money) + "          " + totalTurn);
 
     }
 
 
     public void writeFile() {
+
+        // todo : 파일에 [이름, 최대소지금, 턴수] 형태로 저장 하는 것 까진 됐는데,
+        //  기존의 값이 남지 않고 매번 새로 덮어씌워지는걸 해결해야한다. 그다음에는 읽어오기가 돼야 하고..
+
+        record.add(Player.player1 + "," + Collections.max(money).toString() + "," + totalTurn);
         try {
             FileWriter fw = new FileWriter("record.csv");
             fw.write(String.valueOf(record));
             fw.close();
         } catch (IOException e) {
-            System.out.println();
+            System.out.println("error");
         }
     }
 }

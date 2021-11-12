@@ -3,7 +3,7 @@ package cocoa.day6.OddEven;
 import java.util.Scanner;
 
 public class Player {
-    public String player1;
+    static String player1;
     // public? private? 빈칸?
     public Player() {
     }
