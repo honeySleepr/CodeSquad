@@ -1,19 +1,19 @@
 package cocoa.week3.Clock;
 
 import java.time.LocalTime;
+
 import static java.time.temporal.ChronoField.*;
 
 class Clock {
-    static LocalTime local = LocalTime.now();
+    LocalTime local = LocalTime.now();
 
-   public int[] CurrentTime() {
-       int hour = local.get(CLOCK_HOUR_OF_AMPM);
-       int min = local.get(MINUTE_OF_HOUR);
+    public void currentTime() {
+        int hour,min,dayNight;
+        hour = local.get(CLOCK_HOUR_OF_AMPM);
+        min = local.get(MINUTE_OF_HOUR);
+       dayNight = local.get(AMPM_OF_DAY);  // AM:0, PM:1
 
-       int[] currentTime = new int[]{hour, min};
-       System.out.println(hour + ":" + min); // 시간 출력 맞는지 확인용
-
-        return currentTime;
+        Table table = new Table(hour,min,dayNight);
+        table.createTable();
     }
-
 }
