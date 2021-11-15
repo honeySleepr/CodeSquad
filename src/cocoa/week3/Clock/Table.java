@@ -2,6 +2,7 @@ package cocoa.week3.Clock;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 class Table {
@@ -9,20 +10,18 @@ class Table {
 
     static public void CreateTable() {
         try {
-            try {
-                File f = new File("HangulClock.csv");
+            File f = new File("HangulClock.csv");
 
-                Scanner s = new Scanner(f);
-                while (s.hasNext()) {
-                    for (int i = 0; i < 6; i++) {
-                        for (int j = 0; j < 6; j++) {
-                            table[i][j] = s.next();
-                        }
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                for (int i = 0; i < 6; i++) {
+                    for (int j = 0; j < 6; j++) {
+                        table[i][j] = s.next();
                     }
                 }
-            } catch (FileNotFoundException e) {
-                System.out.println("파일을 찾을 수 없습니다");
             }
+        } catch (IOException e) {
+            System.out.println("파일을 찾을 수 없습니다");
         } catch (NoSuchElementException e) {
             System.out.println("파일 내용이 비어있습니다");
         }
@@ -30,7 +29,16 @@ class Table {
 
     static public void printTable() {
         for (String[] e : table) {
-            System.out.println(Arrays.toString(e));
+            for (String f : e) {
+                if (!f.endsWith(")")) {
+                    System.out.print(" ");
+                }
+                System.out.print(f);
+                if (!f.endsWith(")")) {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
         }
     }
 
@@ -47,15 +55,15 @@ class Table {
             case 3:
             case 4:
                 sb1.append("(");
-                sb1.append(table[0][hour % 6-1]);
+                sb1.append(table[0][hour % 6 - 1]);
                 sb1.append(")");
-                table[0][hour % 6-1] = sb1.toString();
+                table[0][hour % 6 - 1] = sb1.toString();
                 break;
             case 5:
                 sb1.append("(");
-                sb1.append(table[0][hour % 6-1]);
+                sb1.append(table[0][hour % 6 - 1]);
                 sb1.append(")");
-                table[0][hour % 6-1] = sb1.toString();
+                table[0][hour % 6 - 1] = sb1.toString();
 
                 sb2.append("(");
                 sb2.append(table[0][hour % 6]);
@@ -137,6 +145,5 @@ class Table {
             default:
                 System.out.println("Error");
         }
-
     }
 }
