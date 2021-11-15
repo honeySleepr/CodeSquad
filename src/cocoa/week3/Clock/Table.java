@@ -4,10 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-public class TimeData {
-    List<String[]> table = new ArrayList<>();
+class Table {
+    static List<String[]> table = new ArrayList<>();
 
-    public List<String[]> Table() {
+    static public List<String[]> Table() {
         try {
             try {
                 File f = new File("HangulClock.csv");
@@ -33,11 +33,10 @@ public class TimeData {
         return table;
     }
 
-    public static void main(String[] args) {
-        TimeData timedata = new TimeData();
-        timedata.Table();
-        for (String[] e : timedata.table) {
+    static public void printTable(){
+        for (String[] e : table) {
             System.out.println(Arrays.toString(e));
         }
     }
+
 }
