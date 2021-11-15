@@ -15,4 +15,5 @@ class Clock {
 
         return currentTime;
     }
+
 }

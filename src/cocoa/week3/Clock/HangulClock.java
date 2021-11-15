@@ -6,8 +6,10 @@ import java.util.Calendar;
 class HangulClock {
     public static void main(String[] args) {
         Table.CreateTable();
-        Table.printTable();
         Clock clock = new Clock();
-        clock.CurrentTime();
+        Table.change(clock.CurrentTime());
+
+        Table.printTable();
+
     }
 }
