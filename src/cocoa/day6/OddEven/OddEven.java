@@ -1,5 +1,7 @@
 package cocoa.day6.OddEven;
 
+import practice.Data;
+
 import java.io.File;
 
 public class OddEven {
