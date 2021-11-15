@@ -3,10 +3,11 @@ package cocoa.week3.Clock;
 import java.util.Arrays;
 import java.util.Calendar;
 
-public class HangulClock {
+class HangulClock {
     public static void main(String[] args) {
-        Table.Table();
+        Table.CreateTable();
         Table.printTable();
-        Clock.CurrentTime();
+        Clock clock = new Clock();
+        clock.CurrentTime();
     }
 }

@@ -5,22 +5,18 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 class Table {
-    static List<String[]> table = new ArrayList<>();
+    static String[][] table = new String[6][6];
 
-    static public List<String[]> Table() {
+    static public String[][] CreateTable() {
         try {
             try {
                 File f = new File("HangulClock.csv");
 
                 Scanner s = new Scanner(f);
                 while (s.hasNext()) {
-                    String[] letter = new String[6];
                     for (int i = 0; i < 6; i++) {
-
-                        letter[i] = s.next();
-
-                        if (i == 5) {
-                            table.add(letter);
+                        for (int j = 0; j < 6; j++) {
+                         table[i][j] = s.next();
                         }
                     }
                 }
