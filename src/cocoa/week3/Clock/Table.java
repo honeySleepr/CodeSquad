@@ -2,14 +2,28 @@ package cocoa.week3.Clock;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.*;
 
 class Table {
-     int hour;
-     int min;
-     int dayNight;
-     String[][] table = new String[6][6];
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String CYAN_BRIGHT = "\033[0;96m";   // CYAN
+    public static final String WHITE = "\033[0;37m";   // WHITE
+    public static final String	INVISIBLE_TEXT		= "\u001B[8m";
+    public static final String	YELLOW				= "\u001B[33m";
+
+    int hour;
+    int min;
+    int dayNight;
+    String[][] table = {
+            {"한", "두", "세", "네", "다", "섯"},
+            {"여", "섯", "일", "곱", "여", "덟"},
+            {"아", "홉", "열", "한", "두", "시"},
+            {"자", "이", "삼", "사", "오", "십"},
+            {"정", "일", "이", "삼", "사", "육"},
+            {"오", "오", "칠", "팔", "구", "분"}
+    };
+//             new String[6][6];
 
     public Table(int hour, int min, int dayNight) {
         this.hour = hour;
@@ -18,22 +32,22 @@ class Table {
     }
 
     public void createTable() {
-        try {
-            File file = new File("HangulClock.csv");
-            Scanner s = new Scanner(file);
-            while (s.hasNext()) {
-                for (int i = 0; i < 6; i++) {
-                    for (int j = 0; j < 6; j++) {
-                        table[i][j] = s.next();
-                    }
-                }
-            }
-        } catch (NoSuchElementException | FileNotFoundException e) {
-            System.out.println("파일 내용이 비어있습니다");
-        }
+//        try {
+//            File file = new File("HangulClock.csv");
+//            Scanner s = new Scanner(file);
+//            while (s.hasNext()) {
+//                for (int i = 0; i < 6; i++) {
+//                    for (int j = 0; j < 6; j++) {
+//                        table[i][j] = s.next();
+//                    }
+//                }
+//            }
+//        } catch (NoSuchElementException | FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
         changeHour();
         changeMin();
-        System.out.printf("\n %02d : %02d \n",hour,min);
+        System.out.printf("\n %02d : %02d \n", hour, min);
         printTable();
     }
 
@@ -41,12 +55,11 @@ class Table {
         try {
             for (String[] e : table) {
                 for (String f : e) {
-                    if (!f.endsWith(">")) {
-                        System.out.print(" ");
-                    }
-                    System.out.print(f);
-                    if (!f.endsWith(">")) {
-                        System.out.print(" ");
+                    if (f.endsWith("<")) {
+                        f = f.substring(0, f.length() - 1);
+                        System.out.printf(YELLOW + "%3s" + ANSI_RESET, f);
+                    } else {
+                        System.out.printf(ANSI_BLACK + "%3s" + ANSI_RESET, f);
                     }
                 }
                 System.out.println();
@@ -57,7 +70,7 @@ class Table {
     }
 
     void wrap(int a, int b) {
-        String sb1 = "<" + table[a][b] + ">";
+        String sb1 = table[a][b] + "<";
         table[a][b] = sb1;
     }
 
@@ -109,8 +122,7 @@ class Table {
                 if (min == 0 && dayNight == 0) {
                     wrap(3, 0);
                     wrap(4, 0);
-                }
-                else if (min == 0 && dayNight == 1) {
+                } else if (min == 0 && dayNight == 1) {
                     wrap(4, 0);
                     wrap(5, 0);
                 } else {

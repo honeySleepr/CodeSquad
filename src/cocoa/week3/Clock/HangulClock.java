@@ -1,25 +1,20 @@
 package cocoa.week3.Clock;
 
-class HangulClock extends Thread {
+class HangulClock implements Runnable {
     public void run() {
-        try {
-            Clock clock = new Clock();
-            clock.currentTime();
-        } catch (Exception e) {
-            System.out.println("Error");
-        }
+        Clock clock = new Clock();
+        clock.currentTime();
     }
 
     public static void main(String[] args) {
-        while (true) {
-
-            try {
-                Thread t = new HangulClock();
-                t.start();
+        try {
+            while (true) {
+                Thread thread = new Thread(new HangulClock());
+                thread.start();
                 Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
