@@ -1,12 +1,17 @@
 package cocoa.week3.Clock;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoField;
+import java.util.Arrays;
+
 class Table {
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String YELLOW = "\u001B[33m";
-    int hour;
-    int min;
-    int dayNight;
+    public static final String ANSI_RED = "\u001B[31m";
+    int hour, min, dayNight;
+    int firstDayNum, lastDay, date;
+    LocalDate today;
     String[][] table = {
             {"한", "두", "세", "네", "다", "섯"},
             {"여", "섯", "일", "곱", "여", "덟"},
@@ -21,6 +26,13 @@ class Table {
         this.hour = hour;
         this.min = min;
         this.dayNight = dayNight;
+    }
+
+    public Table(LocalDate today, int firstDayNum, int lastDay, int date) {
+        this.today = today;
+        this.firstDayNum = firstDayNum;
+        this.lastDay = lastDay;
+        this.date = date;
     }
 
     public void createTable() {
@@ -178,5 +190,47 @@ class Table {
             default:
                 System.out.println("Min Error");
         }
+    }
+
+    String[] day = {"일", "월", "화", "수", "목", "금", "토"};
+    String[][] calendar = {
+            {" ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " "},
+            {" ", " ", " ", " ", " ", " ", " "}
+    };
+
+    public void createCalendar() {
+        String date = "1";
+        for (int i = 0; i < 6; i++) {
+            for (int j = firstDayNum; j < 7; j++) {
+                calendar[i][j] = date;
+                int intDate = Integer.parseInt(date);
+                intDate++;
+                date = String.valueOf(intDate);
+                if (intDate == lastDay) {
+                    break;
+                }
+            }
+        }
+        printCalendar();
+    }
+
+    public void printCalendar() {
+        System.out.println(Arrays.toString(day));
+        for (String[] e : calendar) {
+            for (String f : e) {
+//                int fInt = Integer.parseInt(f);
+                if (true) {
+                    System.out.printf(ANSI_RED + "%2s" + ANSI_RESET, f);
+                } else {
+                    System.out.printf("%2s", f);
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 }

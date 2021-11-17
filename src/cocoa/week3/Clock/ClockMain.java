@@ -4,7 +4,12 @@ import java.util.Scanner;
 
 class ClockMain implements Runnable {
     static boolean quit;
-    static boolean clock;
+    static boolean clockOn;
+
+    public static void main(String[] args) {
+        String option = Start();
+        loop(option);
+    }
 
     public void run() {
         StartApp startApp = new StartApp();
@@ -18,8 +23,7 @@ class ClockMain implements Runnable {
         }
     }
 
-    public static void main(String[] args) {
-        String option = Start();
+    private static void loop(String option) {
         Runnable runnable = new ClockMain();
         Thread thread = new Thread(runnable);
 
@@ -27,24 +31,40 @@ class ClockMain implements Runnable {
             thread.start();
         }
         if (option.equals("cal")) {
-            System.out.println("CALENDER NOT READY YET");
+            System.out.println("CALENDAR NOT READY");
             System.out.print("Enter command : ");
         }
         while (!quit) {
             String newOption = changeOption(option);
-            if(option.equals("clock") || newOption.equals("clock")){
-                clock = true;
-            }
+            switch (newOption) {
+                case "q":
+                    thread.interrupt();
+                    break;
 
-            if (newOption.equals("q")) {
-                thread.interrupt();
+                case "clock":
+                    if (clockOn) {
+                        System.out.println("-clock 이미 실행중-");
+                    } else {
+                        thread.start();
+                    }
+                    break;
+
+                case "cal":
+                    System.out.println("CALENDAR NOT READY");
+
+                    if (!clockOn) {
+                        System.out.println("Commands: [cal/clock/q]");
+                    }
+                    break;
+
+                default:
+                    if (!clockOn) {
+                        System.out.println("Commands: [cal/clock/q]");
+                    }
+                    break;
             }
-            if (newOption.equals("clock")) {
-                thread.interrupt();
-                thread.start();
-            }
-            if (newOption.equals("cal")) {
-                System.out.println("CALENDER NOT READY YET");
+            if (option.equals("clock") || newOption.equals("clock")) {
+                clockOn = true;
             }
         }
     }
@@ -52,10 +72,6 @@ class ClockMain implements Runnable {
     private static String changeOption(String option) {
         Scanner sc = new Scanner(System.in);
         String newOption = sc.nextLine();
-        while(option.equals("clock") && newOption.equals("clock")) {
-            System.out.println("-clock 이미 실행중-");
-            newOption = sc.nextLine();
-        }
         if (newOption.equals("q")) {
             quit = true;
         }
@@ -67,7 +83,7 @@ class ClockMain implements Runnable {
         Scanner sc = new Scanner(System.in);
         String command = sc.nextLine();
         while (!(command.equals("cal") || command.equals("clock"))) {
-            System.out.print("Enter command : ");
+            System.out.print("Enter command [cal/clock] : ");
             command = sc.nextLine();
         }
         return command;
