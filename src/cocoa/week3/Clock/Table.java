@@ -1,17 +1,9 @@
 package cocoa.week3.Clock;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.*;
-
 class Table {
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RESET = "\u001B[0m";
-    public static final String CYAN_BRIGHT = "\033[0;96m";   // CYAN
-    public static final String WHITE = "\033[0;37m";   // WHITE
-    public static final String	INVISIBLE_TEXT		= "\u001B[8m";
-    public static final String	YELLOW				= "\u001B[33m";
-
+    public static final String YELLOW = "\u001B[33m";
     int hour;
     int min;
     int dayNight;
@@ -32,23 +24,10 @@ class Table {
     }
 
     public void createTable() {
-//        try {
-//            File file = new File("HangulClock.csv");
-//            Scanner s = new Scanner(file);
-//            while (s.hasNext()) {
-//                for (int i = 0; i < 6; i++) {
-//                    for (int j = 0; j < 6; j++) {
-//                        table[i][j] = s.next();
-//                    }
-//                }
-//            }
-//        } catch (NoSuchElementException | FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
         changeHour();
         changeMin();
-        System.out.printf("\n %02d : %02d \n", hour, min);
         printTable();
+//        System.out.printf("\n %02d : %02d \n", hour, min);
     }
 
     public void printTable() {
@@ -64,70 +43,71 @@ class Table {
                 }
                 System.out.println();
             }
+            System.out.println();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }
 
-    void wrap(int a, int b) {
+    void mark(int a, int b) {
         String sb1 = table[a][b] + "<";
         table[a][b] = sb1;
     }
 
     void changeHour() {
         if (!(hour == 12 && min == 0)) {
-            wrap(2, 5);
+            mark(2, 5);
         }
         switch (hour) {
             case 1:
-                wrap(0, 0);
+                mark(0, 0);
                 break;
             case 2:
-                wrap(0, 1);
+                mark(0, 1);
                 break;
             case 3:
-                wrap(0, 2);
+                mark(0, 2);
                 break;
             case 4:
-                wrap(0, 3);
+                mark(0, 3);
                 break;
             case 5:
-                wrap(0, 4);
-                wrap(0, 5);
+                mark(0, 4);
+                mark(0, 5);
                 break;
             case 6:
-                wrap(1, 0);
-                wrap(1, 1);
+                mark(1, 0);
+                mark(1, 1);
                 break;
             case 7:
-                wrap(1, 2);
-                wrap(1, 3);
+                mark(1, 2);
+                mark(1, 3);
                 break;
             case 8:
-                wrap(1, 4);
-                wrap(1, 5);
+                mark(1, 4);
+                mark(1, 5);
                 break;
             case 9:
-                wrap(2, 0);
-                wrap(2, 1);
+                mark(2, 0);
+                mark(2, 1);
                 break;
             case 10:
-                wrap(2, 2);
+                mark(2, 2);
                 break;
             case 11:
-                wrap(2, 2);
-                wrap(2, 3);
+                mark(2, 2);
+                mark(2, 3);
                 break;
             case 12:
                 if (min == 0 && dayNight == 0) {
-                    wrap(3, 0);
-                    wrap(4, 0);
+                    mark(3, 0);
+                    mark(4, 0);
                 } else if (min == 0 && dayNight == 1) {
-                    wrap(4, 0);
-                    wrap(5, 0);
+                    mark(4, 0);
+                    mark(5, 0);
                 } else {
-                    wrap(2, 2);
-                    wrap(2, 4);
+                    mark(2, 2);
+                    mark(2, 4);
                 }
                 break;
             default:
@@ -138,37 +118,37 @@ class Table {
     void changeMin() {
 
         if (!(min == 0)) {
-            wrap(5, 5);
+            mark(5, 5);
         }
         switch (min % 10) {
             case 0:
                 break;
             case 1:
-                wrap(4, 1);
+                mark(4, 1);
                 break;
             case 2:
-                wrap(4, 2);
+                mark(4, 2);
                 break;
             case 3:
-                wrap(4, 3);
+                mark(4, 3);
                 break;
             case 4:
-                wrap(4, 4);
+                mark(4, 4);
                 break;
             case 5:
-                wrap(5, 1);
+                mark(5, 1);
                 break;
             case 6:
-                wrap(4, 5);
+                mark(4, 5);
                 break;
             case 7:
-                wrap(5, 2);
+                mark(5, 2);
                 break;
             case 8:
-                wrap(5, 3);
+                mark(5, 3);
                 break;
             case 9:
-                wrap(5, 4);
+                mark(5, 4);
                 break;
             default:
                 System.out.println("Min Error");
@@ -177,23 +157,23 @@ class Table {
             case 0:
                 break;
             case 1:
-                wrap(3, 5);
+                mark(3, 5);
                 break;
             case 2:
-                wrap(3, 5);
-                wrap(3, 1);
+                mark(3, 5);
+                mark(3, 1);
                 break;
             case 3:
-                wrap(3, 5);
-                wrap(3, 2);
+                mark(3, 5);
+                mark(3, 2);
                 break;
             case 4:
-                wrap(3, 5);
-                wrap(3, 3);
+                mark(3, 5);
+                mark(3, 3);
                 break;
             case 5:
-                wrap(3, 5);
-                wrap(3, 4);
+                mark(3, 5);
+                mark(3, 4);
                 break;
             default:
                 System.out.println("Min Error");
