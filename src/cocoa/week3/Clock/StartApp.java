@@ -2,8 +2,6 @@ package cocoa.week3.Clock;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.temporal.ChronoField;
-
 import static java.time.temporal.ChronoField.*;
 
 class StartApp {
@@ -27,19 +25,9 @@ class StartApp {
         int lastDay = today.getMonth().maxLength();
         int date = today.get(DAY_OF_MONTH);
 
-//        int year, month, date, dayOfWeek;
-//        year = today.get(YEAR);
-//        month = today.get(MONTH_OF_YEAR);
-
-//        dayOfWeek = today.get(DAY_OF_WEEK);
-//        System.out.println(year + " " + month + " " + date + " " + dayOfWeek);
-
-
         calendar = new Table(today,firstDayNum,lastDay,date);
         calendar.createCalendar();
     }
 
-    void inputCommand() {
-    }
 }
 

@@ -51,10 +51,6 @@ class ClockMain implements Runnable {
 
                 case "cal":
                     System.out.println("CALENDAR NOT READY");
-
-                    if (!clockOn) {
-                        System.out.println("Commands: [cal/clock/q]");
-                    }
                     break;
 
                 default:
