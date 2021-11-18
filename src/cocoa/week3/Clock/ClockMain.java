@@ -10,7 +10,7 @@ class ClockMain implements Runnable {
                 Thread.sleep(5000);
             }
         } catch (InterruptedException e) {
-            System.out.println("-종료-");
+            System.out.println("-시계 일시정지-");
         }
     }
     public static void main(String[] args) {

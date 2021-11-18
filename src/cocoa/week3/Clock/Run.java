@@ -6,16 +6,28 @@ public class Run {
     boolean quit;
     boolean clockOn;
 
+    public String Start() {
+        System.out.print("Enter command : ");
+        Scanner sc = new Scanner(System.in);
+        String command = sc.nextLine();
+        while (!(command.equals("cal") || command.equals("clock"))) {
+            System.out.print("Enter command [cal/clock] : ");
+            command = sc.nextLine();
+        }
+        return command;
+    }
+
     public void loop(String option) {
         Runnable runnable = new ClockMain();
         Thread thread = new Thread(runnable);
+        StartApp startApp = new StartApp();
 
         if (option.equals("clock")) {
             thread.start();
             clockOn = true;
         }
         if (option.equals("cal")) {
-            System.out.println("CALENDAR NOT READY");
+            startApp.currentDate();
             System.out.print("Enter command : ");
         }
         while (!quit) {
@@ -38,7 +50,14 @@ public class Run {
                     }
                     break;
                 case "cal":
-                    System.out.println("CALENDAR NOT READY");
+                    thread.interrupt();
+                   try{
+                       Thread.sleep(100);
+                   }catch(InterruptedException e){
+                       e.printStackTrace();
+                   }
+                    clockOn = false;
+                    startApp.currentDate();
                     break;
                 default:
                     System.out.println("Commands: [cal/clock/q/s]");
@@ -51,22 +70,15 @@ public class Run {
     }
 
     public String changeOption() {
-        Scanner sc = new Scanner(System.in);
-        String newOption = sc.nextLine();
+        Scanner sc1 = new Scanner(System.in);
+        String newOption = sc1.nextLine();
         if (newOption.equals("q")) {
             quit = true;
+            System.out.println("-프로그램 종료-");
+
         }
         return newOption;
     }
 
-    public String Start() {
-        System.out.print("Enter command : ");
-        Scanner sc = new Scanner(System.in);
-        String command = sc.nextLine();
-        while (!(command.equals("cal") || command.equals("clock"))) {
-            System.out.print("Enter command [cal/clock] : ");
-            command = sc.nextLine();
-        }
-        return command;
-    }
+
 }

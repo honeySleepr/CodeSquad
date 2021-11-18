@@ -1,16 +1,13 @@
 package cocoa.week3.Clock;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoField;
-import java.util.Arrays;
 
 class Table {
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String YELLOW = "\u001B[33m";
-    public static final String ANSI_RED = "\u001B[31m";
     int hour, min, dayNight;
-    int firstDayNum, lastDay, date;
+    int firstDayOfMonth, lastDayOfMonth, date;
     LocalDate today;
     String[][] table = {
             {"한", "두", "세", "네", "다", "섯"},
@@ -20,7 +17,14 @@ class Table {
             {"정", "일", "이", "삼", "사", "육"},
             {"오", "오", "칠", "팔", "구", "분"}
     };
-//             new String[6][6];
+    Boolean[][] checkTable = {
+            {false, false, false, false, false, false},
+            {false, false, false, false, false, false},
+            {false, false, false, false, false, false},
+            {false, false, false, false, false, false},
+            {false, false, false, false, false, false},
+            {false, false, false, false, false, false}
+    };
 
     public Table(int hour, int min, int dayNight) {
         this.hour = hour;
@@ -28,11 +32,16 @@ class Table {
         this.dayNight = dayNight;
     }
 
-    public Table(LocalDate today, int firstDayNum, int lastDay, int date) {
+    public Table(LocalDate today, int firstDayOfMonth, int lastDayOfMonth, int date) {
         this.today = today;
-        this.firstDayNum = firstDayNum;
-        this.lastDay = lastDay;
+        this.firstDayOfMonth = firstDayOfMonth;
+        this.lastDayOfMonth = lastDayOfMonth;
         this.date = date;
+    }
+    public Table(LocalDate today, int firstDayOfMonth, int lastDayOfMonth) {
+        this.today = today;
+        this.firstDayOfMonth = firstDayOfMonth;
+        this.lastDayOfMonth = lastDayOfMonth;
     }
 
     public void createTable() {
@@ -44,13 +53,12 @@ class Table {
 
     public void printTable() {
         try {
-            for (String[] e : table) {
-                for (String f : e) {
-                    if (f.endsWith("<")) {
-                        f = f.substring(0, f.length() - 1);
-                        System.out.printf(YELLOW + "%3s" + ANSI_RESET, f);
+            for (int i = 0; i < 6; i++) {
+                for (int j = 0; j < 6; j++) {
+                    if (checkTable[i][j]) {
+                        System.out.printf(YELLOW + "%3s" + ANSI_RESET, table[i][j]);
                     } else {
-                        System.out.printf(ANSI_BLACK + "%3s" + ANSI_RESET, f);
+                        System.out.printf(ANSI_BLACK + "%3s" + ANSI_RESET, table[i][j]);
                     }
                 }
                 System.out.println();
@@ -62,8 +70,7 @@ class Table {
     }
 
     void mark(int a, int b) {
-        String sb1 = table[a][b] + "<";
-        table[a][b] = sb1;
+        checkTable[a][b] = true;
     }
 
     void changeHour() {
@@ -192,45 +199,22 @@ class Table {
         }
     }
 
-    String[] day = {"일", "월", "화", "수", "목", "금", "토"};
-    String[][] calendar = {
-            {" ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " "}
-    };
-
-    public void createCalendar() {
-        String date = "1";
-        for (int i = 0; i < 6; i++) {
-            for (int j = firstDayNum; j < 7; j++) {
-                calendar[i][j] = date;
-                int intDate = Integer.parseInt(date);
-                intDate++;
-                date = String.valueOf(intDate);
-                if (intDate == lastDay) {
-                    break;
-                }
-            }
-        }
-        printCalendar();
-    }
-
     public void printCalendar() {
-        System.out.println(Arrays.toString(day));
-        for (String[] e : calendar) {
-            for (String f : e) {
-//                int fInt = Integer.parseInt(f);
-                if (true) {
-                    System.out.printf(ANSI_RED + "%2s" + ANSI_RESET, f);
-                } else {
-                    System.out.printf("%2s", f);
-                }
-            }
-            System.out.println();
-        }
+        System.out.printf(ANSI_BLACK+"%-4s%-4s%-4s %-4s%-4s%-4s%-4s"+ANSI_RESET, "일", "월", "화", "수", "목", "금", "토");
         System.out.println();
+        for (int i = 0; i < firstDayOfMonth%7; i++) {
+            System.out.printf("     ");
+        }
+        for (int i = 1; i <= lastDayOfMonth; i++) {
+            if (i == date) {
+                System.out.printf(YELLOW + "%-5d" + ANSI_RESET, i);
+            } else {
+                System.out.printf("%-5d", i);
+            }
+            if ((firstDayOfMonth + i) % 7 == 0) {
+                System.out.println();
+            }
+        }
+        System.out.print("\n\n");
     }
 }
