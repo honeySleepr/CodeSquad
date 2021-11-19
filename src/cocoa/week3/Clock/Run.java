@@ -39,6 +39,12 @@ public class Run {
                     break;
                 case "q":
                     thread.interrupt();
+                    try{
+                        Thread.sleep(100);
+                    }catch(InterruptedException e){
+                        e.printStackTrace();
+                    }
+                    System.out.println("-프로그램 종료-");
                     break;
                 case "clock":
                     if (clockOn) {
@@ -74,7 +80,6 @@ public class Run {
         String newOption = sc1.nextLine();
         if (newOption.equals("q")) {
             quit = true;
-            System.out.println("-프로그램 종료-");
 
         }
         return newOption;
