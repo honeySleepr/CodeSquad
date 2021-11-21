@@ -1,7 +1,7 @@
 package cocoa.day6;
 
 import java.util.Scanner;
-
+// todo: 미완성
 // 0. 사용자 정보 입력
 class User {
     public String RegisterUser() {

@@ -1,4 +1,4 @@
-package cocoa.day3;
+package cocoa.week1;
 
 import java.util.Scanner;
 
@@ -11,9 +11,9 @@ class Indian {
         System.out.println("생년월일을 입력해주세요(공백으로 년월일 구분)");
         Scanner sc = new Scanner(System.in);
 
-            int year = sc.nextInt();
-            int month = sc.nextInt();
-            int day = sc.nextInt();
+        int year = sc.nextInt();
+        int month = sc.nextInt();
+        int day = sc.nextInt();
 
         int[] date = {year, month, day};
         return date;
@@ -32,24 +32,19 @@ class Indian {
         System.out.print("당신의 이름은 ");
         System.out.print(yearName[newdate[0]] + " " + monthName[newdate[1]] + dayName[newdate[2]]);
         System.out.print("입니다.");
-
     }
 //    public static void repeat() {
 //        int[] date = Indian.input();
 //        date = Indian.calculate(date);
 //        Indian.print(date);
 //    }
-}
 
-
-public class mission1 {
     public static void main(String[] args) {
-            int[] date = Indian.input();
-            date = Indian.calculate(date);
-            Indian.print(date);
+        int[] date = Indian.input();
+        date = Indian.calculate(date);
+        Indian.print(date);
 //            Indian.repeat();
 
-
-        }
     }
+}
 

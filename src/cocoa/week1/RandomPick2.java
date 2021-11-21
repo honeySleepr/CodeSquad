@@ -1,4 +1,4 @@
-package cocoa.day3;
+package cocoa.week1;
 
 import java.util.Scanner;
 import java.util.Random;
@@ -42,15 +42,12 @@ class RandomPick2 {
             }
         }
     }
-}
 
-public class mission0Ver2 {
     public static void main(String[] args) {
         RandomPick2 r = new RandomPick2();
         int num = r.ask();
         int[] index = r.shuffle(num);
         r.print(index);
-
     }
 }
 

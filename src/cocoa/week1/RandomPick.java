@@ -1,4 +1,4 @@
-package cocoa.day3;
+package cocoa.week1;
 
 import java.util.*;
 
