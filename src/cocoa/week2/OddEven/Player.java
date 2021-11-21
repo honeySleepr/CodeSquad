@@ -1,4 +1,4 @@
-package cocoa.day6.OddEven;
+package cocoa.week2.OddEven;
 
 import java.util.Scanner;
 

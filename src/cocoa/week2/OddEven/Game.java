@@ -1,6 +1,5 @@
-package cocoa.day6.OddEven;
+package cocoa.week2.OddEven;
 
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;

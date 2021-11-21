@@ -1,4 +1,4 @@
-package cocoa.day6;
+package cocoa.week2;
 
 import java.util.Scanner;
 // todo: 미완성
