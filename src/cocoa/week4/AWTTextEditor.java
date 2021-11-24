@@ -103,6 +103,7 @@ public class AWTTextEditor extends Frame {
 
             // todo: 텍스트 줄 자동 바꿈 설정 어떻게?
             if (miChangeLine.getState()) {
+//                setLayout(new FlowLayout());
             }
 
             //File Menu 기능 설정
