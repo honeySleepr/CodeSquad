@@ -3,18 +3,17 @@ package cocoa.week4.Sketch;
 import java.awt.*;
 import java.awt.event.*;
 
-public class AWTSketch extends Frame implements MouseMotionListener {
-    int x1, x2, x3;
-    int y1, y2, y3;
-    Image img = null;
+public class AWTSketch extends Frame {
+    int x1, x2, x3, x4;
+    int y1, y2, y3, y4;
     Graphics graphics = null;
     Button bt1;
     Button bt2;
     Button bt3;
     Button bt4;
     Panel panel;
-    String option;
-
+    String option = "사각형";
+    Image img = null;
 
     public static void main(String[] args) {
         new AWTSketch("Sketch test 2");
@@ -22,8 +21,9 @@ public class AWTSketch extends Frame implements MouseMotionListener {
 
     public AWTSketch(String title) {
         super(title);
-        addMouseMotionListener(this);
+        addMouseMotionListener(new MouseHandler());
         addMouseListener(new MouseHandler());
+
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -31,14 +31,92 @@ public class AWTSketch extends Frame implements MouseMotionListener {
             }
         });
         Buttons();
-
         setBounds(700, 300, 500, 500);
         setVisible(true);
-
+        /*여기 순서 때문에 에러났었네..*/
         img = createImage(500, 500);
         graphics = img.getGraphics();
-        graphics.drawString("왼쪽 버튼 누르고 선 그리기", 20, 80);
-        repaint();
+//repaint();
+    }
+
+    @Override
+    public void paint(Graphics g) {
+if(img == null) return;
+        paintComponents(g);
+        /*여기 순서 바꾸니 또 되네..*/
+        g.drawImage(img,0,0,this);
+
+    }
+
+    @Override
+    public void update(Graphics g) {
+        paint(g);
+    }
+
+    public void paintComponents(Graphics g) {
+        super.paintComponents(g);
+        if (option.equals("사각형")) {
+            graphics.drawRect(Math.min(x2, x3), Math.min(y2, y3), Math.abs(x3 - x2), Math.abs(y3 - y2));
+        }
+        if (option.equals("원")) {
+            graphics.drawOval(Math.min(x2, x3), Math.min(y2, y3), Math.abs(x3 - x2), Math.abs(y3 - y2));
+        }
+
+        if (option.equals("곡선")) {
+                    graphics.drawLine(x1, y1, x4, y4);
+
+//                    y22 = me.getY();
+//                    repaint();
+                }
+
+//            g.drawLine(x1, y1, x4, y4);
+
+        if (option.equals("직선")) {
+            graphics.drawLine(x2, y2, x3, y3);
+        }
+    }
+
+    class MouseHandler implements MouseMotionListener, MouseListener {
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            x1 = e.getX();
+            y1 = e.getY();
+
+        }
+        @Override
+        public void mousePressed(MouseEvent e) {
+            x2 = e.getX();
+            y2 = e.getY();
+            System.out.print(x2 + " 클-");
+        }
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            x3 = e.getX();
+            y3 = e.getY();
+            System.out.println("-릭 " + x3);
+            repaint();
+        }
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            x4 = e.getX();
+            y4 = e.getY();
+
+//            if (option.equals("곡선")) ;
+//            {
+//            }
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
     }
 
     public void Buttons() {
@@ -58,82 +136,30 @@ public class AWTSketch extends Frame implements MouseMotionListener {
         bt4.addActionListener(new ActionHandler());
     }
 
-    @Override
-    public void paint(Graphics g) {
-//        if (img == null) {
-//            return;
-//        }
-        g.drawImage(img, 0, 0, this);
-
-// Dynamically calculate size information
-//        Dimension size = getSize();        // diameter
-//        int d = 50;
-//        int x = (size.width - d) / 2;
-//        int y = (size.height - d) / 2;
-//        // draw circle (color already set to foreground)
-//
-//        g.setColor(Color.green);
-//        g.drawOval(x, y, d, d);
-    }
-
-
-    @Override
-    public void mouseMoved(MouseEvent me) {
-        x1 = me.getX();
-        y1 = me.getY();
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent me) {
-        if (option.equals("곡선")) {
-            if (me.getModifiersEx() != MouseEvent.BUTTON1_DOWN_MASK) return;
-            graphics.drawLine(x1, y1, me.getX(), me.getY());
-            graphics.setColor(Color.red);
-            graphics.setPaintMode();
-            x1 = me.getX();
-            y1 = me.getY();
-            repaint();
-        }
-    }
-
-    class MouseHandler extends MouseAdapter {
-        @Override
-        public void mousePressed(MouseEvent e) {
-            x2 = e.getX();
-            y2 = e.getY();
-            System.out.print(x2+ " 클-");
-        }
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            x3 = e.getX();
-            y3 = e.getY();
-            System.out.println("-릭 "+x3);
-            if (option.equals("원")) {
-
-                graphics.drawOval(Math.min(x2,x3), Math.min(y2,y3), Math.abs(x3-x2), Math.abs(y3-y2));
-
-                repaint();
-            }
-        }
-    }
     class ActionHandler implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             Button btn = (Button) e.getSource();
 
             if (btn.getLabel().equals("사각형")) {
-                option = btn.getLabel();
 
-            } else if (btn.getLabel().equals("원")) {
+                option = btn.getLabel();
                 System.out.println(btn.getLabel());
-                option = btn.getLabel();
+                System.out.println(option);
+            } else if (btn.getLabel().equals("원")) {
 
+                option = btn.getLabel();
+                System.out.println(btn.getLabel());
+                System.out.println(option);
             } else if (btn.getLabel().equals("곡선")) {
-                option = btn.getLabel();
 
+                option = btn.getLabel();
+                System.out.println(btn.getLabel());
+                System.out.println(option);
             } else if (btn.getLabel().equals("직선")) {
                 option = btn.getLabel();
+                System.out.println(btn.getLabel());
+                System.out.println(option);
             }
         }
     }
