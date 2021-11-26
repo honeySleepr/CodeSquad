@@ -62,14 +62,7 @@ if(img == null) return;
             graphics.drawOval(Math.min(x2, x3), Math.min(y2, y3), Math.abs(x3 - x2), Math.abs(y3 - y2));
         }
 
-        if (option.equals("곡선")) {
-                    graphics.drawLine(x1, y1, x4, y4);
 
-//                    y22 = me.getY();
-//                    repaint();
-                }
-
-//            g.drawLine(x1, y1, x4, y4);
 
         if (option.equals("직선")) {
             graphics.drawLine(x2, y2, x3, y3);
@@ -100,10 +93,13 @@ if(img == null) return;
         public void mouseDragged(MouseEvent e) {
             x4 = e.getX();
             y4 = e.getY();
-
-//            if (option.equals("곡선")) ;
-//            {
-//            }
+            if (option.equals("곡선")) {
+//                if(e.getModifiersEx()!=MouseEvent.BUTTON1_DOWN_MASK) return;
+                graphics.drawLine(x1, y1, e.getX(), e.getY());
+                x1 = e.getX();
+                y1 = e.getY();
+                repaint();
+            }
         }
 
         @Override
