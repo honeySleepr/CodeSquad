@@ -3,9 +3,7 @@ package cocoa.week4.Sketch;
 import java.awt.*;
 import java.awt.event.*;
 
-/* 1. 창 크기 바꾸고 옮기면 왜 어쩔때 버튼이 뭉개질까
- * 2. 마우스 드래그 중에 어떻게 그려질지 보고 싶으면(잔상 남게 하려면) 어떻게 해야하지?
- */
+/*잔상 남기기 구현 실패..*/
 
 public class AWTSketch extends Frame {
     int x1, x2, x4, x3;
@@ -44,8 +42,6 @@ public class AWTSketch extends Frame {
         /*여기 순서 때문에 에러났었네..*/
         img = createImage(getWidth(), getHeight());
         graphics = img.getGraphics();
-
-//repaint();
     }
 
     @Override
@@ -80,7 +76,6 @@ public class AWTSketch extends Frame {
 
         if (option.equals("직선")) {
             graphics.drawLine(x2, y2, x4, y4);
-//repaint();
         }
     }
 
@@ -94,12 +89,10 @@ public class AWTSketch extends Frame {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            img2 = createImage(getWidth(), getHeight());
-            graphics2 = img2.getGraphics();
+
             mouseDown = true;
             x2 = e.getX();
             y2 = e.getY();
-            System.out.println(x2 + " 클-");
         }
 
         @Override
@@ -113,11 +106,14 @@ public class AWTSketch extends Frame {
                 repaint();
             }
             if (option.equals("직선")) {
+                /* 잔상 구현 실패..repaint 넣으면 잔상은 나타나지만 실제로 그려지는 라인이 이상해진다 */
+//                img2 = createImage(getWidth(), getHeight());
+//                graphics2 = img2.getGraphics();
+//                graphics2.setColor(Color.red);
+//                graphics2.drawLine(x2 + 30, y2, x3, y3);
 
-                graphics2.setColor(Color.red);
-                graphics2.drawLine(x2, y2, x3, y3);
-                repaint();
-
+//                graphics2.dispose();
+//                img2.flush();
             }
         }
 
@@ -127,10 +123,7 @@ public class AWTSketch extends Frame {
             x4 = e.getX();
             y4 = e.getY();
 
-            System.out.println("-릭 " + x4);
             repaint();
-            graphics2.dispose();
-            img2.flush();
         }
 
         @Override
@@ -171,21 +164,18 @@ public class AWTSketch extends Frame {
             if (btn.getLabel().equals("사각형")) {
 
                 option = btn.getLabel();
-                System.out.println(btn.getLabel());
                 System.out.println(option);
             } else if (btn.getLabel().equals("원")) {
 
                 option = btn.getLabel();
-                System.out.println(btn.getLabel());
                 System.out.println(option);
             } else if (btn.getLabel().equals("곡선")) {
 
                 option = btn.getLabel();
-                System.out.println(btn.getLabel());
                 System.out.println(option);
             } else if (btn.getLabel().equals("직선")) {
+
                 option = btn.getLabel();
-                System.out.println(btn.getLabel());
                 System.out.println(option);
             }
         }
