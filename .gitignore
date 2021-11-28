@@ -4,6 +4,8 @@ out/
 *.iml
 *.csv
 *.txt
+*.png
+*.jpg
 *.stackdump
 
 src/honux/
