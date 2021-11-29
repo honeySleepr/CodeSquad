@@ -7,45 +7,52 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class LeftPanel {
-    private Frame frame;
+public class LeftPanel extends JPanel {
+    JPanel ingredientPanel;
 
-//    public FrameComponents(Frame frame){
-//        this.frame = frame;
-//    }
+    public LeftPanel() {
 
-    public void Components(){
-        Frame frame = new Frame();
-        ImageIcon mainIcon = new ImageIcon("image/Coffee.png");
-        frame.setIconImage(mainIcon.getImage());
+        setLayout(new BorderLayout());
+        setBackground(new Color(189, 209, 239));
+        setPreferredSize(new Dimension(500, 800));
 
-        JPanel leftPanel = new JPanel();
-        leftPanel.setLayout(new BorderLayout());
-//        leftPanel.setBackground(Color.GRAY);
-        leftPanel.setPreferredSize(new Dimension(480, 800));
+        ingredientPanel = new JPanel();
+        ingredientPanel.setBackground(new Color(200, 180, 180));
+        ingredientPanel.setPreferredSize(new Dimension(200, 200));
+        ingredientPanel.setLayout(new FlowLayout());
 
-        JPanel ingredientPanel = new JPanel();
-        ingredientPanel.setBackground(new Color(200,200,180));
-        ingredientPanel.setPreferredSize(new Dimension(800, 200));
+        add(ingredientPanel, BorderLayout.NORTH);
 
-        /*Labels*/
+        /*라벨로 안되면 그냥 TextArea 로 하자*/
+        makeLabel("우유");
+        makeLabel("에스프레소샷");
+        makeLabel("물");
+//        makeLabel("모카시럽");
+//        makeLabel("바닐라시럽");
+//        makeLabel("카라멜시럽");
+//        makeLabel("연유");
+//        makeLabel("자바칩");
+//        makeLabel("간얼음");
         JLabel label = new JLabel();
-//        label.setText(option);
-        label.setHorizontalTextPosition(JLabel.CENTER);  // 라벨 텍스트 가로 위치
-        label.setVerticalTextPosition(JLabel.TOP);       // 라벨 텍스트 세로 위치
-        label.setForeground(new Color(0xff0000));   // 라벨 텍스트 색상
-        label.setFont(new Font("MV Boli", Font.BOLD, 50));
-//        label.setVisible(true);
-        label.setOpaque(true);
+        label.setText("Why BABY WHY");
+        label.setForeground(new Color(0x070707));   // 라벨 텍스트 색상
+        label.setFont(new Font("MV Boli", Font.BOLD, 30));
         ingredientPanel.add(label);
-
-//        frame.add(leftPanel, BorderLayout.WEST);
-//        frame.add(buttonPanel, BorderLayout.EAST);
-//        leftPanel.add(ingredientPanel, BorderLayout.NORTH);
-
     }
+
     public void icons() {
         ImageIcon mainIcon = new ImageIcon("image/Coffee.png");
     }
 
+    public void makeLabel(String option){
+        JLabel label = new JLabel();
+        label.setText(option);
+        label.setForeground(new Color(0x070707));   // 라벨 텍스트 색상
+        label.setFont(new Font("MV Boli", Font.BOLD, 30));
+        ingredientPanel.add(label);
+    }
+
+    public void removeLabel(){
+
+    }
 }

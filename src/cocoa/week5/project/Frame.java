@@ -9,14 +9,17 @@ public class Frame extends JFrame {
     String option;
     public Frame() {
         super("Cafe");
+        LeftPanel leftPanel = new LeftPanel();
         ButtonPanel buttonPanel = new ButtonPanel();
 //        FrameComponents components = new FrameComponents(this);
         /*Main Frame*/
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 800);
-        setLayout(new BorderLayout(10,10));
+        setLayout(new BorderLayout());
         getContentPane().add(buttonPanel,BorderLayout.EAST);
+        getContentPane().add(leftPanel,BorderLayout.WEST);
         setResizable(false);
+        pack();
         setLocationRelativeTo(null);
         setVisible(true);
 //        leftPanel.add(ingredientPanel, BorderLayout.NORTH);

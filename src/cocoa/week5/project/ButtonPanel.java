@@ -8,11 +8,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class ButtonPanel extends JPanel implements ActionListener, MouseListener {
-    private String option;
-
+    String option;
 
     public ButtonPanel() {
-        setBackground(Color.gray);
+
+
+        setBackground(new Color(0xF6F5E9));
         setLayout(new GridLayout(5, 2));
         setPreferredSize(new Dimension(300, 800));
 
@@ -23,10 +24,10 @@ public class ButtonPanel extends JPanel implements ActionListener, MouseListener
         makeButton("물");
         makeButton("모카시럽");
         makeButton("바닐라시럽");
-        makeButton("바닐라시럽");
-        makeButton("바닐라시럽");
-        makeButton("바닐라시럽");
-        makeButton("바닐라시럽");
+        makeButton("카라멜시럽");
+        makeButton("연유");
+        makeButton("자바칩");
+        makeButton("간얼음");
 
     }
 
@@ -36,17 +37,17 @@ public class ButtonPanel extends JPanel implements ActionListener, MouseListener
         button.addActionListener(this);
         button.addMouseListener(this);
         button.setFocusable(false);
-        this.add(button);
+        add(button);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("우유")) {
-            System.out.println(e.getActionCommand());
-            option = e.getActionCommand();
-//            frame.setIngredient("우유");
-        }
+        option = e.getActionCommand();
+        System.out.println(option);
+//        JOptionPane.showMessageDialog(getComponent(0), "Hello World");
     }
+
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -72,5 +73,9 @@ public class ButtonPanel extends JPanel implements ActionListener, MouseListener
     @Override
     public void mouseExited(MouseEvent e) {
         Cursor cursor = new Cursor(Cursor.DEFAULT_CURSOR);
+    }
+
+    public String getOption() {
+        return option;
     }
 }
