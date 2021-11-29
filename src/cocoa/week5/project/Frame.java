@@ -19,6 +19,7 @@ public class Frame extends JFrame {
 
         /*Buttons*/
         Buttons buttons = new Buttons();
+        // 버튼 생성, add, addActionListener, setActionCommand 전부 합친 메소드
         buttons.makeButton(buttonPanel, "우유");
         buttons.makeButton(buttonPanel, "에스프레소샷");
         buttons.makeButton(buttonPanel, "물");
@@ -29,12 +30,13 @@ public class Frame extends JFrame {
         buttons.makeButton(buttonPanel, "바닐라시럽");
         buttons.makeButton(buttonPanel, "바닐라시럽");
 
+        /*Main Frame*/
         setIconImage(mainIcon.getImage());
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 800);
         setLayout(new BorderLayout());
         setResizable(false);
+        setLocationRelativeTo(null);
         setVisible(true);
         add(buttonPanel, BorderLayout.EAST);
     }
