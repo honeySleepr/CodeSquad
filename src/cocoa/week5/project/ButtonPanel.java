@@ -7,25 +7,44 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class Buttons implements ActionListener, MouseListener {
-    void makeButton(JPanel panel, String title) {
+public class ButtonPanel extends JPanel implements ActionListener, MouseListener {
+    private String option;
+
+
+    public ButtonPanel() {
+        setBackground(Color.gray);
+        setLayout(new GridLayout(5, 2));
+        setPreferredSize(new Dimension(300, 800));
+
+        /*Buttons*/
+        // 버튼 생성, add, addActionListener, setActionCommand 전부 합친 메소드
+        makeButton("우유");
+        makeButton("에스프레소샷");
+        makeButton("물");
+        makeButton("모카시럽");
+        makeButton("바닐라시럽");
+        makeButton("바닐라시럽");
+        makeButton("바닐라시럽");
+        makeButton("바닐라시럽");
+        makeButton("바닐라시럽");
+
+    }
+
+    void makeButton(String title) {
         JButton button = new JButton(title);
         button.setActionCommand(title);
         button.addActionListener(this);
         button.addMouseListener(this);
         button.setFocusable(false);
-        panel.add(button);
-    }
-
-    public void icons() {
-        ImageIcon mainIcon = new ImageIcon("image/Coffee.png");
+        this.add(button);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (e.getActionCommand().equals("우유")) {
             System.out.println(e.getActionCommand());
+            option = e.getActionCommand();
+//            frame.setIngredient("우유");
         }
     }
 
@@ -41,20 +60,17 @@ public class Buttons implements ActionListener, MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        Cursor cursor = new Cursor(Cursor.DEFAULT_CURSOR);
+
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        System.out.println("Enter");
-
-        // 버튼 위에선 손 모양 마우스 포인터로 변경
+// 버튼 위에선 손 모양 마우스 포인터로 변경
         e.getComponent().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
+        Cursor cursor = new Cursor(Cursor.DEFAULT_CURSOR);
     }
 }

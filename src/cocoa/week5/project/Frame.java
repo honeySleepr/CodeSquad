@@ -6,40 +6,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Frame extends JFrame {
-
-    Frame() {
+    String option;
+    public Frame() {
         super("Cafe");
-        ImageIcon mainIcon = new ImageIcon("image/Coffee.png");
-
-        /*Button Panel*/
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(Color.gray);
-        buttonPanel.setLayout(new GridLayout(5, 2));
-        buttonPanel.setPreferredSize(new Dimension(300, 800));
-
-        /*Buttons*/
-        Buttons buttons = new Buttons();
-        // 버튼 생성, add, addActionListener, setActionCommand 전부 합친 메소드
-        buttons.makeButton(buttonPanel, "우유");
-        buttons.makeButton(buttonPanel, "에스프레소샷");
-        buttons.makeButton(buttonPanel, "물");
-        buttons.makeButton(buttonPanel, "모카시럽");
-        buttons.makeButton(buttonPanel, "바닐라시럽");
-        buttons.makeButton(buttonPanel, "바닐라시럽");
-        buttons.makeButton(buttonPanel, "바닐라시럽");
-        buttons.makeButton(buttonPanel, "바닐라시럽");
-        buttons.makeButton(buttonPanel, "바닐라시럽");
-
+        ButtonPanel buttonPanel = new ButtonPanel();
+//        FrameComponents components = new FrameComponents(this);
         /*Main Frame*/
-        setIconImage(mainIcon.getImage());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 800);
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(10,10));
+        getContentPane().add(buttonPanel,BorderLayout.EAST);
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
-        add(buttonPanel, BorderLayout.EAST);
+//        leftPanel.add(ingredientPanel, BorderLayout.NORTH);
     }
 
+
+    public void setIngredient(String ingredient) {
+option = ingredient;
+    }
+
+    public static void main(String[] args) {
+        new Frame();
+    }
 
 }
