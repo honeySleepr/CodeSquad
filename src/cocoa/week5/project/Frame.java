@@ -8,20 +8,20 @@ public class Frame extends JFrame {
 
     public Frame() {
         super("Cafe");
-        startFrame();
+        constructFrame();
     }
 
-    public void startFrame() {
+    public void constructFrame() {
         Panel panel = new Panel();
 //        FrameComponents components = new FrameComponents(this);
         /*Main Frame*/
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 800);
+        setSize(900, 600);
         setLayout(new BorderLayout());
         getContentPane().add(panel.buttonPanel, BorderLayout.EAST);
         getContentPane().add(panel.leftPanel, BorderLayout.WEST);
         setResizable(false);
-//        pack();
+        pack();
         setLocationRelativeTo(null);
         setVisible(true);
 //        leftPanel.add(ingredientPanel, BorderLayout.NORTH);
@@ -32,6 +32,7 @@ public class Frame extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Frame());
+        new Frame();
+
     }
 }

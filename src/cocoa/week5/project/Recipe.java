@@ -1,10 +1,16 @@
 package cocoa.week5.project;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class Recipe {
+    public void checkRecipe(ArrayList<JLabel> ingredients) {
+//ingredients
+
+    }
+
     public static void main(String[] args) {
 
         HashMap<String, ArrayList<String>> menu = new HashMap<>();
