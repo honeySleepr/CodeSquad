@@ -9,7 +9,7 @@ import java.awt.event.MouseListener;
 
 public class ButtonPanel extends JPanel implements ActionListener, MouseListener {
     String option;
-
+    LeftPanel leftPanel = new LeftPanel();
     public ButtonPanel() {
 
 
@@ -42,8 +42,11 @@ public class ButtonPanel extends JPanel implements ActionListener, MouseListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         option = e.getActionCommand();
         System.out.println(option);
+        leftPanel.makeLabel(option);
+
 //        JOptionPane.showMessageDialog(getComponent(0), "Hello World");
     }
 
