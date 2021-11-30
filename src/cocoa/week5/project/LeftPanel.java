@@ -54,7 +54,7 @@ public class LeftPanel extends JPanel {
             label.setForeground(new Color(0xFF2424));
             label.setFont(new Font("a뉴굴림2", Font.BOLD, 30));
         }
-        label.setVisible(false);
+        label.setVisible(true);
         ingredientPanel.add(label);
         ingredientPanel.validate();
     }
@@ -64,12 +64,13 @@ public class LeftPanel extends JPanel {
             if (jc instanceof JLabel) {
                 JLabel label = (JLabel) jc;
                 if (label.getText().contains(option)) {
-                    label.setVisible(true);
+
                     ingredientPanel.add(label);
                     ingredientPanel.setVisible(true);
-ingredientPanel.updateUI();
+                    ingredientPanel.updateUI();
                     System.out.println("equals");
                     System.out.println(label);
+                    label.setVisible(false);
                 }
             }
         }

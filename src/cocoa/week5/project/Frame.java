@@ -7,8 +7,13 @@ import java.awt.event.ActionListener;
 
 public class Frame extends JFrame {
     String option;
+
     public Frame() {
         super("Cafe");
+        startFrame();
+    }
+
+    public void startFrame() {
         LeftPanel leftPanel = new LeftPanel();
         ButtonPanel buttonPanel = new ButtonPanel();
 //        FrameComponents components = new FrameComponents(this);
@@ -16,8 +21,8 @@ public class Frame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 800);
         setLayout(new BorderLayout());
-        getContentPane().add(buttonPanel,BorderLayout.EAST);
-        getContentPane().add(leftPanel,BorderLayout.WEST);
+        getContentPane().add(buttonPanel, BorderLayout.EAST);
+        getContentPane().add(leftPanel, BorderLayout.WEST);
         setResizable(false);
 //        pack();
         setLocationRelativeTo(null);
@@ -25,13 +30,11 @@ public class Frame extends JFrame {
 //        leftPanel.add(ingredientPanel, BorderLayout.NORTH);
     }
 
-
     public void setIngredient(String ingredient) {
-option = ingredient;
+        option = ingredient;
     }
 
     public static void main(String[] args) {
-        new Frame();
+        SwingUtilities.invokeLater(() -> new Frame());
     }
-
 }
