@@ -28,6 +28,7 @@ public class ButtonPanel extends JPanel implements ActionListener, MouseListener
         makeButton("연유");
         makeButton("자바칩");
         makeButton("간얼음");
+        makeButton("제조");
 
     }
 
@@ -37,6 +38,11 @@ public class ButtonPanel extends JPanel implements ActionListener, MouseListener
         button.addActionListener(this);
         button.addMouseListener(this);
         button.setFocusable(false);
+        button.setFont(new Font("a뉴굴림2", Font.PLAIN, 15));
+        if(button.getText().equals("제조")){
+            button.setBackground(new Color(0xEFD3AB));
+            button.setFont(new Font("a뉴굴림2", Font.BOLD, 20));
+        }
         add(button);
     }
 
@@ -45,7 +51,7 @@ public class ButtonPanel extends JPanel implements ActionListener, MouseListener
 
         option = e.getActionCommand();
         System.out.println(option);
-        leftPanel.makeLabel(option);
+        leftPanel.showLabel(option);
 
 //        JOptionPane.showMessageDialog(getComponent(0), "Hello World");
     }

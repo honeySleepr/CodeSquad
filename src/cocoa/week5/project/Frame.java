@@ -19,7 +19,7 @@ public class Frame extends JFrame {
         getContentPane().add(buttonPanel,BorderLayout.EAST);
         getContentPane().add(leftPanel,BorderLayout.WEST);
         setResizable(false);
-        pack();
+//        pack();
         setLocationRelativeTo(null);
         setVisible(true);
 //        leftPanel.add(ingredientPanel, BorderLayout.NORTH);
