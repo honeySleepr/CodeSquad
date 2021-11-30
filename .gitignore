@@ -6,6 +6,7 @@ out/
 *.txt
 *.png
 *.jpg
+*.mp3
 *.stackdump
 
 src/honux/
