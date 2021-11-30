@@ -2,8 +2,6 @@ package cocoa.week5.project;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Frame extends JFrame {
     String option;
@@ -14,15 +12,14 @@ public class Frame extends JFrame {
     }
 
     public void startFrame() {
-        LeftPanel leftPanel = new LeftPanel();
-        ButtonPanel buttonPanel = new ButtonPanel();
+        Panel panel = new Panel();
 //        FrameComponents components = new FrameComponents(this);
         /*Main Frame*/
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 800);
         setLayout(new BorderLayout());
-        getContentPane().add(buttonPanel, BorderLayout.EAST);
-        getContentPane().add(leftPanel, BorderLayout.WEST);
+        getContentPane().add(panel.buttonPanel, BorderLayout.EAST);
+        getContentPane().add(panel.leftPanel, BorderLayout.WEST);
         setResizable(false);
 //        pack();
         setLocationRelativeTo(null);
