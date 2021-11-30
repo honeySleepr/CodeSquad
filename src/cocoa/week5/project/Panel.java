@@ -45,6 +45,7 @@ public class Panel implements ActionListener, MouseListener {
         makeButton("모카시럽");
         makeButton("바닐라시럽");
         makeButton("카라멜시럽");
+        makeButton("헤이즐넛시럽");
         makeButton("연유");
         makeButton("자바칩");
         makeButton("간얼음");
@@ -57,6 +58,7 @@ public class Panel implements ActionListener, MouseListener {
         makeLabel("모카시럽");
         makeLabel("바닐라시럽");
         makeLabel("카라멜시럽");
+        makeLabel("헤이즐넛시럽");
         makeLabel("연유");
         makeLabel("자바칩");
         makeLabel("간얼음");
@@ -94,29 +96,30 @@ public class Panel implements ActionListener, MouseListener {
 
     public void showLabel(String option) {
         for (Component jc : ingredientPanel.getComponents()) {
-//            if (jc instanceof JLabel)
             JLabel label = (JLabel) jc;
             if (label.getText().contains(option)) {
                 label.setVisible(!label.isVisible());
-            }
-            if (label.isVisible()) {
-                selectedIngredients.add(label);
-            } else if (!label.isVisible()) {
-                selectedIngredients.remove(label);
+                if (label.isVisible() && !label.getText().contains("제조")) {
+                    selectedIngredients.add(label);
+                } else if (!label.isVisible()) {
+                    selectedIngredients.remove(label);
+                }
             }
         }
-        System.out.print("selectedIngredients : ");
+        /**/
+        System.out.print("selectedIngredients :  ");
         for (JLabel j : selectedIngredients) {
-            System.out.print(j.getText()+"  ");
+            System.out.print(j.getText() + "  ");
         }
+        System.out.println();
+        /**/
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         option = e.getActionCommand();
-        System.out.println(option);
         showLabel(option);
-        if (option.equals("제조")) {
+        if (option.contains("제조")) {
             Recipe recipe = new Recipe();
             recipe.checkRecipe(selectedIngredients);
         }
