@@ -6,22 +6,26 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Panel implements ActionListener, MouseListener {
-    String option;
     JPanel buttonPanel;
     JPanel leftPanel;
     JPanel ingredientPanel;
+    JPanel displayPanel;
+    JLabel make;
     //    ArrayList<String> allIngredients = new ArrayList<>(List.of("~"));
     ArrayList<JLabel> selectedIngredients = new ArrayList<>();
+    final String[] list = new String[]{"에스프레소샷", "우유",
+            "그린티파우더", "모카시럽", "바닐라시럽", "카라멜시럽",
+            "헤이즐넛시럽", "연유", "자바칩", "간얼음", "제조"};
 
     public Panel() {
+        /*필드에서 선언했을 때와의 차이는? */
         buttonPanel = new JPanel();
         leftPanel = new JPanel();
         ingredientPanel = new JPanel();
+        displayPanel = new JPanel();
 
         /*Buttons Panel*/
         buttonPanel.setBackground(new Color(0xF6F5E9));
@@ -35,34 +39,17 @@ public class Panel implements ActionListener, MouseListener {
         ingredientPanel.setBackground(new Color(200, 180, 180));
         ingredientPanel.setPreferredSize(new Dimension(200, 180));
         ingredientPanel.setLayout(new FlowLayout());
+        /*Display Panel*/
+        displayPanel.setBackground(new Color(181, 201, 150));
+        displayPanel.setPreferredSize(new Dimension(200, 420));
+        displayPanel.setLayout(new BorderLayout());
 
         leftPanel.add(ingredientPanel, BorderLayout.NORTH);
-        /*Buttons & Labels : Arraylist+for 문 사용해서 줄일 것 */
-        makeButton("물");
-        makeButton("에스프레소샷");
-        makeButton("우유");
-        makeButton("그린티파우더");
-        makeButton("모카시럽");
-        makeButton("바닐라시럽");
-        makeButton("카라멜시럽");
-        makeButton("헤이즐넛시럽");
-        makeButton("연유");
-        makeButton("자바칩");
-        makeButton("간얼음");
-        makeButton("제조");
+        leftPanel.add(displayPanel, BorderLayout.SOUTH);
 
-        makeLabel("물");
-        makeLabel("에스프레소샷");
-        makeLabel("우유");
-        makeLabel("그린티파우더");
-        makeLabel("모카시럽");
-        makeLabel("바닐라시럽");
-        makeLabel("카라멜시럽");
-        makeLabel("헤이즐넛시럽");
-        makeLabel("연유");
-        makeLabel("자바칩");
-        makeLabel("간얼음");
-        makeLabel("제조 중..");
+        makeButtonList();
+        makeLabelList();
+        displayPanel.add(make, BorderLayout.CENTER);
     }
 
     void makeButton(String title) {
@@ -82,9 +69,12 @@ public class Panel implements ActionListener, MouseListener {
     public void makeLabel(String option) {
         JLabel label = new JLabel();
         if (option.contains("제조")) {
-            label.setText(option);
-            label.setForeground(new Color(0xFF2424));
-            label.setFont(new Font("a뉴굴림2", Font.BOLD, 30));
+            make = new JLabel();
+            make.setText("제조 중..");
+            make.setForeground(new Color(0xFF2424));
+            make.setFont(new Font("a뉴굴림2", Font.BOLD, 30));
+            make.setHorizontalAlignment(JLabel.CENTER);// 라벨 세로 위치 설정
+            make.setVisible(false);
         } else {
             label.setText(option + "   ");
             label.setForeground(new Color(0x070707));   // 라벨 텍스트 색상
@@ -94,11 +84,24 @@ public class Panel implements ActionListener, MouseListener {
         ingredientPanel.add(label);
     }
 
+    void makeButtonList() {
+        for (String i : list) {
+            makeButton(i);
+        }
+    }
+
+    void makeLabelList() {
+        for (String i : list) {
+            makeLabel(i);
+        }
+    }
+
     public void showLabel(String option) {
         for (Component jc : ingredientPanel.getComponents()) {
             JLabel label = (JLabel) jc;
             if (label.getText().contains(option)) {
                 label.setVisible(!label.isVisible());
+
                 if (label.isVisible() && !label.getText().contains("제조")) {
                     selectedIngredients.add(label);
                 } else if (!label.isVisible()) {
@@ -106,22 +109,41 @@ public class Panel implements ActionListener, MouseListener {
                 }
             }
         }
-        /**/
+        /*------- 테스트용 selectedIngredients 출력 ---*/
         System.out.print("selectedIngredients :  ");
         for (JLabel j : selectedIngredients) {
             System.out.print(j.getText() + "  ");
         }
         System.out.println();
-        /**/
+        /*-------------------------------------------*/
+    }
+
+    public void resetLabel() {
+        for (Component jc : ingredientPanel.getComponents()) {
+            jc.setVisible(false);
+        }
+        try
+        {
+            Thread.sleep(1000);
+        }
+        catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
+        make.setVisible(false);
+        selectedIngredients.clear();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        option = e.getActionCommand();
-        showLabel(option);
-        if (option.contains("제조")) {
+
+        showLabel(e.getActionCommand());
+
+        if (e.getActionCommand().contains("제조")) {
+            make.setVisible(true);
             Recipe recipe = new Recipe();
             recipe.checkRecipe(selectedIngredients);
+            resetLabel();
         }
     }
 
