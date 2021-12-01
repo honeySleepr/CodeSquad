@@ -75,6 +75,7 @@ public class Panel implements ActionListener, MouseListener {
             make.setFont(new Font("a뉴굴림2", Font.BOLD, 30));
             make.setHorizontalAlignment(JLabel.CENTER);// 라벨 세로 위치 설정
             make.setVisible(false);
+
         } else {
             label.setText(option + "   ");
             label.setForeground(new Color(0x070707));   // 라벨 텍스트 색상
@@ -97,6 +98,7 @@ public class Panel implements ActionListener, MouseListener {
     }
 
     public void showLabel(String option) {
+
         for (Component jc : ingredientPanel.getComponents()) {
             JLabel label = (JLabel) jc;
             if (label.getText().contains(option)) {
@@ -119,18 +121,21 @@ public class Panel implements ActionListener, MouseListener {
     }
 
     public void resetLabel() {
-        for (Component jc : ingredientPanel.getComponents()) {
-            jc.setVisible(false);
-        }
-        try
-        {
-            Thread.sleep(1000);
-        }
-        catch(InterruptedException ex)
-        {
-            Thread.currentThread().interrupt();
-        }
-        make.setVisible(false);
+
+        int delay = 2000;
+        Timer timer = new Timer( delay, new ActionListener(){
+            @Override
+            public void actionPerformed( ActionEvent e ){
+                for (Component jc : ingredientPanel.getComponents()) {
+                    jc.setVisible(false);
+                }
+                make.setVisible(false);
+            }
+        } );
+        timer.setRepeats( false );
+        timer.start();
+
+
         selectedIngredients.clear();
     }
 
@@ -143,6 +148,7 @@ public class Panel implements ActionListener, MouseListener {
             make.setVisible(true);
             Recipe recipe = new Recipe();
             recipe.checkRecipe(selectedIngredients);
+
             resetLabel();
         }
     }
