@@ -4,16 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Frame extends JFrame {
-    String option;
-
     public Frame() {
         super("Cafe");
         constructFrame();
     }
 
     public void constructFrame() {
-        Panel panel = new Panel();
-//        FrameComponents components = new FrameComponents(this);
+
+        Menu m = new Menu();
+        CheckRecipe recipe = m.getRecipe();
+        Panel panel = new Panel(recipe);
+
         /*Main Frame*/
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 600);
@@ -24,15 +25,9 @@ public class Frame extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
-//        leftPanel.add(ingredientPanel, BorderLayout.NORTH);
-    }
-
-    public void setIngredient(String ingredient) {
-        option = ingredient;
     }
 
     public static void main(String[] args) {
         new Frame();
-
     }
 }
