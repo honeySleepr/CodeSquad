@@ -2,14 +2,14 @@
 out/
 
 *.iml
-*.csv
-*.txt
 *.jpg
 *.mp3
 *.stackdump
 
-image/
-sound/
+
+sound/*
+image/*
+text/*
 src/honux/
 src/practice/
 src/reference/
