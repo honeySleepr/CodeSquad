@@ -15,10 +15,9 @@ public class Panel implements ActionListener, MouseListener {
     ArrayList<JLabel> selectedIngredients = new ArrayList<>();
     final String[] list = new String[]{"에스프레소샷", "우유",
             "그린티파우더", "모카시럽", "바닐라시럽", "카라멜시럽",
-            "헤이즐넛시럽", "연유", "자바칩", "간얼음", "제조"};
+            "헤이즐넛시럽", "연유", "자바칩", "간얼음", "제조", "목록"};
 
     public Panel() {
-        /*필드에서 선언했을 때와의 차이는? */
         buttonPanel = new JPanel();
         leftPanel = new JPanel();
         ingredientPanel = new JPanel();
@@ -52,6 +51,17 @@ public class Panel implements ActionListener, MouseListener {
         displayPanel.add(make, BorderLayout.NORTH);
     }
 
+    void makeButtonList() {
+        for (String i : list) {
+            makeButton(i);
+        }
+    }
+
+    void makeLabelList() {
+        for (String i : list) {
+            makeLabel(i);
+        }
+    }
     void makeButton(String title) {
         JButton button = new JButton(title);
         button.setActionCommand(title);
@@ -59,9 +69,9 @@ public class Panel implements ActionListener, MouseListener {
         button.addMouseListener(this);
         button.setFocusable(false);
         button.setFont(new Font("a뉴굴림2", Font.BOLD, 20));
-        if (button.getText().equals("제조")) {
+        if (button.getText().contains("제조") || button.getText().contains("목록")) {
             button.setBackground(new Color(0xEFDFCC));
-            button.setFont(new Font("a뉴굴림2", Font.BOLD, 30));
+            button.setFont(new Font("맑은고딕", Font.BOLD, 40));
         }
         buttonPanel.add(button);
     }
@@ -75,25 +85,13 @@ public class Panel implements ActionListener, MouseListener {
             make.setFont(new Font("a뉴굴림2", Font.BOLD, 30));
             make.setHorizontalAlignment(JLabel.CENTER);// 라벨 세로 위치 설정
             make.setVisible(false);
-        } else {
+        } else if (!option.contains("목록")) {
             label.setText(option + "   ");
             label.setForeground(new Color(0x070707));   // 라벨 텍스트 색상
             label.setFont(new Font("a뉴굴림2", Font.PLAIN, 30));
         }
         label.setVisible(false);
         ingredientPanel.add(label);
-    }
-
-    void makeButtonList() {
-        for (String i : list) {
-            makeButton(i);
-        }
-    }
-
-    void makeLabelList() {
-        for (String i : list) {
-            makeLabel(i);
-        }
     }
 
     public void showLabel(String option) {
@@ -126,14 +124,20 @@ public class Panel implements ActionListener, MouseListener {
         ImageIcon icon;
         imgLabel = new JLabel();
         if (drink == null) {
+            System.out.println("??");
             icon = new ImageIcon("image/FAIL.png");
         } else {
             icon = new ImageIcon("image/coffee2.gif");
+            imgLabel.setText(drink);
         }
-        imgLabel.setIcon(icon);
-        imgLabel.setHorizontalAlignment(JLabel.CENTER);
-        displayPanel.add(imgLabel, BorderLayout.CENTER);
 
+        imgLabel.setIcon(icon);
+        imgLabel.setHorizontalTextPosition(JLabel.CENTER);  // 라벨 텍스트 위치
+        imgLabel.setVerticalTextPosition(JLabel.BOTTOM);
+        imgLabel.setHorizontalAlignment(JLabel.CENTER);
+        imgLabel.setFont(new Font("a뉴굴림2", Font.BOLD, 30));
+        imgLabel.setIconTextGap(20);
+        displayPanel.add(imgLabel, BorderLayout.CENTER);
         if (drink == null) {
             JOptionPane.showMessageDialog(ingredientPanel,
                     "실패!");
@@ -148,14 +152,25 @@ public class Panel implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        /**/
         System.out.println(e.getActionCommand());
         showLabel(e.getActionCommand());
 
         if (e.getActionCommand().contains("제조")) {
             make.setVisible(true);
-            Recipe recipe = new Recipe();
+            CheckRecipe recipe = new CheckRecipe();
             drink = recipe.checkRecipe(selectedIngredients);
             buildup();
+        }
+        if (e.getActionCommand().contains("목록")) {
+            CheckRecipe recipe = new CheckRecipe();
+            if (recipe.unmade.size() > 0) {
+                JOptionPane.showMessageDialog(buttonPanel,
+                        recipe.unmade.stream().toArray());
+            }else{
+                JOptionPane.showMessageDialog(buttonPanel,
+                        "모든 음료 완성!");
+            }
         }
     }
 
