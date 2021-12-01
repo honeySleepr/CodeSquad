@@ -8,6 +8,8 @@ out/
 *.mp3
 *.stackdump
 
+image/
+sound/
 src/honux/
 src/practice/
 src/reference/
