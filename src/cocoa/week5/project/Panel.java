@@ -1,20 +1,16 @@
 package cocoa.week5.project;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
+import java.io.File;
 import java.util.ArrayList;
 
 public class Panel implements ActionListener, MouseListener {
-    JPanel buttonPanel;
-    JPanel leftPanel;
-    JPanel ingredientPanel;
-    JPanel displayPanel;
+    JPanel buttonPanel, leftPanel, ingredientPanel, displayPanel;
     JLabel make;
-    //    ArrayList<String> allIngredients = new ArrayList<>(List.of("~"));
+    JLabel img;
     ArrayList<JLabel> selectedIngredients = new ArrayList<>();
     final String[] list = new String[]{"에스프레소샷", "우유",
             "그린티파우더", "모카시럽", "바닐라시럽", "카라멜시럽",
@@ -26,9 +22,12 @@ public class Panel implements ActionListener, MouseListener {
         leftPanel = new JPanel();
         ingredientPanel = new JPanel();
         displayPanel = new JPanel();
+        createPanel();
+    }
 
+    private void createPanel() {
         /*Buttons Panel*/
-        buttonPanel.setBackground(new Color(0xF6F5E9));
+        buttonPanel.setBackground(new Color(0xFFFFFF));
         buttonPanel.setLayout(new GridLayout(6, 2));
         buttonPanel.setPreferredSize(new Dimension(400, 600));
         /*Left Panel*/
@@ -36,11 +35,11 @@ public class Panel implements ActionListener, MouseListener {
         leftPanel.setBackground(new Color(189, 209, 239));
         leftPanel.setPreferredSize(new Dimension(500, 600));
         /*Ingredient Panel*/
-        ingredientPanel.setBackground(new Color(200, 180, 180));
+        ingredientPanel.setBackground(new Color(253, 235, 235));
         ingredientPanel.setPreferredSize(new Dimension(200, 180));
         ingredientPanel.setLayout(new FlowLayout());
         /*Display Panel*/
-        displayPanel.setBackground(new Color(181, 201, 150));
+        displayPanel.setBackground(new Color(239, 250, 225));
         displayPanel.setPreferredSize(new Dimension(200, 420));
         displayPanel.setLayout(new BorderLayout());
 
@@ -49,7 +48,7 @@ public class Panel implements ActionListener, MouseListener {
 
         makeButtonList();
         makeLabelList();
-        displayPanel.add(make, BorderLayout.CENTER);
+        ingredientPanel.add(make);
     }
 
     void makeButton(String title) {
@@ -60,7 +59,7 @@ public class Panel implements ActionListener, MouseListener {
         button.setFocusable(false);
         button.setFont(new Font("a뉴굴림2", Font.BOLD, 20));
         if (button.getText().equals("제조")) {
-            button.setBackground(new Color(0xEFD3AB));
+            button.setBackground(new Color(0xEFDFCC));
             button.setFont(new Font("a뉴굴림2", Font.BOLD, 30));
         }
         buttonPanel.add(button);
@@ -122,25 +121,18 @@ public class Panel implements ActionListener, MouseListener {
     public void resetLabel() {
         selectedIngredients.clear();
 
-        Timer timer1 = new Timer(500, e -> {
-            /* 지정 시간만큼 지연 후 실행*/
-            make.setVisible(!make.isVisible());
-            System.out.println("Dddddd");
-        });
-        timer1.setRepeats(true);
-        timer1.start();
+        for (Component jc : ingredientPanel.getComponents()) {
+            jc.setVisible(false);
+        }
+        make.setVisible(false);
+        showDrink();
+    }
 
-        Timer timer2 = new Timer(3000, e -> {
-            /* 지정 시간만큼 지연 후 실행*/
-            for (Component jc : ingredientPanel.getComponents()) {
-                jc.setVisible(false);
-            }
-            make.setVisible(false);
-            System.out.println("timer");
-            timer1.stop();
-        });
-        timer2.setRepeats(false);
-        timer2.start();
+    public void showDrink() {
+        img = new JLabel("음료이미지");
+        ImageIcon image = new ImageIcon("image/cabbage22.png");
+        img.setIcon(image);
+//        System.out.println(img);
     }
 
     @Override
@@ -150,11 +142,50 @@ public class Panel implements ActionListener, MouseListener {
 
         if (e.getActionCommand().contains("제조")) {
             make.setVisible(true);
-
             Recipe recipe = new Recipe();
-            recipe.checkRecipe(selectedIngredients);
 
+            buildup(recipe.checkRecipe(selectedIngredients));
+        }
+    }
+
+    private void buildup(String drink) {
+        playSound(drink);
+        Timer timer1 = new Timer(500, e -> {
+            make.setVisible(!make.isVisible());        //깜빡이 효과
+        });
+
+        Timer timer2 = new Timer(3000, e -> {
+            /**/
+            System.out.println("timer22222");
+            timer1.stop();
             resetLabel();
+        });
+
+        timer1.setRepeats(true);
+        timer1.start();
+        timer2.setRepeats(false);
+        timer2.start();
+    }
+
+    private void playSound(String drink) {
+        File file;
+
+        if (drink == null) {
+            file = new File("sound/Cooking_Fail.wav");
+        } else {
+            file = new File("sound/Cooking_Success.wav");
+        }
+
+        try {
+            AudioInputStream stream = AudioSystem.getAudioInputStream(file);
+            Clip clip = AudioSystem.getClip();
+            clip.open(stream);
+            FloatControl gainControl =
+                    (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(-10.0f);  // 볼륨 -10 데시벨
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
