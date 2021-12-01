@@ -4,7 +4,6 @@ out/
 *.iml
 *.csv
 *.txt
-*.png
 *.jpg
 *.mp3
 *.stackdump

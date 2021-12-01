@@ -10,7 +10,8 @@ import java.util.ArrayList;
 public class Panel implements ActionListener, MouseListener {
     JPanel buttonPanel, leftPanel, ingredientPanel, displayPanel;
     JLabel make;
-    JLabel img;
+    JLabel imgLabel;
+    String drink;
     ArrayList<JLabel> selectedIngredients = new ArrayList<>();
     final String[] list = new String[]{"에스프레소샷", "우유",
             "그린티파우더", "모카시럽", "바닐라시럽", "카라멜시럽",
@@ -35,20 +36,20 @@ public class Panel implements ActionListener, MouseListener {
         leftPanel.setBackground(new Color(189, 209, 239));
         leftPanel.setPreferredSize(new Dimension(500, 600));
         /*Ingredient Panel*/
-        ingredientPanel.setBackground(new Color(253, 235, 235));
+        ingredientPanel.setBackground(Color.WHITE);
         ingredientPanel.setPreferredSize(new Dimension(200, 180));
         ingredientPanel.setLayout(new FlowLayout());
         /*Display Panel*/
-        displayPanel.setBackground(new Color(239, 250, 225));
+        displayPanel.setBackground(Color.WHITE);
         displayPanel.setPreferredSize(new Dimension(200, 420));
-        displayPanel.setLayout(new BorderLayout());
+        displayPanel.setLayout(new BorderLayout(10, 10));
 
         leftPanel.add(ingredientPanel, BorderLayout.NORTH);
         leftPanel.add(displayPanel, BorderLayout.SOUTH);
 
         makeButtonList();
         makeLabelList();
-        ingredientPanel.add(make);
+        displayPanel.add(make, BorderLayout.NORTH);
     }
 
     void makeButton(String title) {
@@ -109,13 +110,6 @@ public class Panel implements ActionListener, MouseListener {
                 }
             }
         }
-        /*------- 테스트용 selectedIngredients 출력 ---*/
-        System.out.print("selectedIngredients :  ");
-        for (JLabel j : selectedIngredients) {
-            System.out.print(j.getText() + "  ");
-        }
-        System.out.println();
-        /*-------------------------------------------*/
     }
 
     public void resetLabel() {
@@ -129,34 +123,49 @@ public class Panel implements ActionListener, MouseListener {
     }
 
     public void showDrink() {
-        img = new JLabel("음료이미지");
-        ImageIcon image = new ImageIcon("image/cabbage22.png");
-        img.setIcon(image);
-//        System.out.println(img);
+        ImageIcon icon;
+        imgLabel = new JLabel();
+        if (drink == null) {
+            icon = new ImageIcon("image/FAIL.png");
+        } else {
+            icon = new ImageIcon("image/coffee2.gif");
+        }
+        imgLabel.setIcon(icon);
+        imgLabel.setHorizontalAlignment(JLabel.CENTER);
+        displayPanel.add(imgLabel, BorderLayout.CENTER);
+
+        if (drink == null) {
+            JOptionPane.showMessageDialog(ingredientPanel,
+                    "실패!");
+        } else {
+            JOptionPane.showMessageDialog(ingredientPanel,
+                    "성공!");
+        }
+
+        displayPanel.remove(1);
+        displayPanel.repaint();  // 이게 있어야 이미지가 안보이게된다
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        System.out.println(e.getActionCommand());
         showLabel(e.getActionCommand());
 
         if (e.getActionCommand().contains("제조")) {
             make.setVisible(true);
             Recipe recipe = new Recipe();
-
-            buildup(recipe.checkRecipe(selectedIngredients));
+            drink = recipe.checkRecipe(selectedIngredients);
+            buildup();
         }
     }
 
-    private void buildup(String drink) {
-        playSound(drink);
-        Timer timer1 = new Timer(500, e -> {
+    private void buildup() {
+        playSound();
+        Timer timer1 = new Timer(700, e -> {
             make.setVisible(!make.isVisible());        //깜빡이 효과
         });
 
-        Timer timer2 = new Timer(3000, e -> {
-            /**/
-            System.out.println("timer22222");
+        Timer timer2 = new Timer(4000, e -> {
             timer1.stop();
             resetLabel();
         });
@@ -167,7 +176,7 @@ public class Panel implements ActionListener, MouseListener {
         timer2.start();
     }
 
-    private void playSound(String drink) {
+    private void playSound() {
         File file;
 
         if (drink == null) {
@@ -175,7 +184,6 @@ public class Panel implements ActionListener, MouseListener {
         } else {
             file = new File("sound/Cooking_Success.wav");
         }
-
         try {
             AudioInputStream stream = AudioSystem.getAudioInputStream(file);
             Clip clip = AudioSystem.getClip();
