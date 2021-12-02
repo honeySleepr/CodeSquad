@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Menu {
     HashMap<String, ArrayList<String>> menu = new HashMap<>();
-    ArrayList<String> unmade = new ArrayList<>();
+    ArrayList<String> toBeMade = new ArrayList<>();
     CheckRecipe recipe;
 
     public Menu() {
@@ -24,15 +24,16 @@ public class Menu {
         menu.put("버터비어 프라푸치노", new ArrayList<>(List.of("우유", "카라멜시럽", "헤이즐넛시럽", "바닐라시럽", "간얼음")));
         menu.put("슈렉 프라푸치노", new ArrayList<>(List.of("에스프레소샷", "우유", "그린티파우더", "모카시럽", "간얼음", "자바칩")));
 
-        unmade.addAll(this.menu.keySet());
-        setRecipe();
+        toBeMade.addAll(this.menu.keySet());
+        setMenu();
     }
 
-    public void setRecipe() {
-        this.recipe = new CheckRecipe(menu, unmade);
+    public void setMenu() {
+        this.recipe = new CheckRecipe(menu, toBeMade);
+
     }
 
-    public CheckRecipe getRecipe() {
+    public CheckRecipe getMenu() {
         return this.recipe;
     }
 }

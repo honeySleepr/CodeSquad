@@ -8,7 +8,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class Panel implements ActionListener, MouseListener {
-    JPanel buttonPanel, leftPanel, ingredientPanel, displayPanel;
+    JPanel buttonPanel;
+    JPanel leftPanel, ingredientPanel, displayPanel;
     JLabel make;
     JLabel imgLabel;
     String drink;
@@ -23,11 +24,11 @@ public class Panel implements ActionListener, MouseListener {
         leftPanel = new JPanel();
         ingredientPanel = new JPanel();
         displayPanel = new JPanel();
-        createPanel();
         this.recipe = recipe;
+
+        createPanel();
         buttonSound(-80); // actionPerformed 에서만 실행하면 처음 버튼을 누를때 약간의 렉이 발생해서
         // 여기서 먼저 소리 없이 한번 실행시켜줬다.
-        System.out.println("button");
     }
 
     private void createPanel() {
@@ -40,7 +41,7 @@ public class Panel implements ActionListener, MouseListener {
         leftPanel.setBackground(new Color(189, 209, 239));
         leftPanel.setPreferredSize(new Dimension(500, 600));
         /*Ingredient Panel*/
-        ingredientPanel.setBackground(Color.WHITE);
+        ingredientPanel.setBackground(new Color(0xFFF6EF));
         ingredientPanel.setPreferredSize(new Dimension(200, 180));
         ingredientPanel.setLayout(new FlowLayout());
         /*Display Panel*/
@@ -116,7 +117,7 @@ public class Panel implements ActionListener, MouseListener {
         }
     }
 
-    static void buttonSound(float volumeControl){
+    static void buttonSound(float volumeControl) {
         File file = new File("src/cocoa/week5/project/sound/button.wav");
         try {
             AudioInputStream stream = AudioSystem.getAudioInputStream(file);
@@ -129,6 +130,7 @@ public class Panel implements ActionListener, MouseListener {
             ex.printStackTrace();
         }
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         buttonSound(-20);
@@ -217,7 +219,7 @@ public class Panel implements ActionListener, MouseListener {
         if (drink == null) {
             JOptionPane.showMessageDialog(ingredientPanel, "                    실패!");
         } else {
-            JOptionPane.showMessageDialog(ingredientPanel, drink+" 성공!");
+            JOptionPane.showMessageDialog(ingredientPanel, drink + " 성공!");
         }
         displayPanel.remove(1);
         displayPanel.repaint();  // 이게 있어야 이미지가 안보이게된다
