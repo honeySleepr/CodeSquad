@@ -7,9 +7,9 @@ out/
 *.stackdump
 
 
-sound/*
-image/*
-text/*
+sound/
+image/
+text/
 src/honux/
 src/practice/
 src/reference/

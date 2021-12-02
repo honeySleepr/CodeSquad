@@ -25,6 +25,9 @@ public class Panel implements ActionListener, MouseListener {
         displayPanel = new JPanel();
         createPanel();
         this.recipe = recipe;
+        buttonSound(-80); // actionPerformed 에서만 실행하면 처음 버튼을 누를때 약간의 렉이 발생해서
+        // 여기서 먼저 소리 없이 한번 실행시켜줬다.
+        System.out.println("button");
     }
 
     private void createPanel() {
@@ -113,9 +116,22 @@ public class Panel implements ActionListener, MouseListener {
         }
     }
 
+    static void buttonSound(float volumeControl){
+        File file = new File("src/cocoa/week5/project/sound/button.wav");
+        try {
+            AudioInputStream stream = AudioSystem.getAudioInputStream(file);
+            Clip clip = AudioSystem.getClip();
+            clip.open(stream);
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(volumeControl);  // 볼륨 -10 데시벨
+            clip.start();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        buttonSound(-20);
         showLabel(e.getActionCommand());
 
         if (e.getActionCommand().contains("제조")) {
@@ -156,16 +172,16 @@ public class Panel implements ActionListener, MouseListener {
         File file;
 
         if (drink == null) {
-            file = new File("sound/Cooking_Fail.wav");
+            file = new File("src/cocoa/week5/project/sound/Cooking_Fail.wav");
         } else {
-            file = new File("sound/Cooking_Success.wav");
+            file = new File("src/cocoa/week5/project/sound/Cooking_Success.wav");
         }
         try {
             AudioInputStream stream = AudioSystem.getAudioInputStream(file);
             Clip clip = AudioSystem.getClip();
             clip.open(stream);
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(-10.0f);  // 볼륨 -10 데시벨
+            gainControl.setValue(0);  // 볼륨 -10 데시벨
             clip.start();
         } catch (Exception e) {
             e.printStackTrace();
@@ -186,9 +202,9 @@ public class Panel implements ActionListener, MouseListener {
         ImageIcon icon;
         imgLabel = new JLabel();
         if (drink == null) {
-            icon = new ImageIcon("image/FAIL.png");
+            icon = new ImageIcon("src/cocoa/week5/project/image/FAIL.png");
         } else {
-            icon = new ImageIcon("image/coffee2.gif");
+            icon = new ImageIcon("src/cocoa/week5/project/image/coffee2.gif");
             imgLabel.setText(drink);
         }
         imgLabel.setIcon(icon);
@@ -201,7 +217,7 @@ public class Panel implements ActionListener, MouseListener {
         if (drink == null) {
             JOptionPane.showMessageDialog(ingredientPanel, "                    실패!");
         } else {
-            JOptionPane.showMessageDialog(ingredientPanel, "                    성공!");
+            JOptionPane.showMessageDialog(ingredientPanel, drink+" 성공!");
         }
         displayPanel.remove(1);
         displayPanel.repaint();  // 이게 있어야 이미지가 안보이게된다
