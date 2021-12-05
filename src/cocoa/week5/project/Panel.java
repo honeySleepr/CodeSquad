@@ -233,6 +233,7 @@ public class Panel implements ActionListener, MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+        e.getComponent().setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 
     @Override
