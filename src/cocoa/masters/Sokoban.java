@@ -1,6 +1,5 @@
 package cocoa.masters;
 
-import java.io.File;
 import java.util.Scanner;
 
 public class Sokoban {
