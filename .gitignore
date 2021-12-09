@@ -7,9 +7,6 @@ out/
 *.stackdump
 
 
-sound/
-image/
-text/
 src/honux/
 src/practice/
 src/reference/
@@ -18,4 +15,4 @@ test.java
 *test.java
 *Test.java
 *by*.java
-**/test
+**/test/
