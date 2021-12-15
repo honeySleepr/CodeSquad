@@ -78,7 +78,6 @@ fabric.properties
 
 # Mine
 src/honux/
-src/practice/
 src/reference/
 
 test.java
