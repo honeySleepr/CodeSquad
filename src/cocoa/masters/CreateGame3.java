@@ -82,10 +82,10 @@ public class CreateGame3 {
 
     private void createMapInfo(List<String> readFile) {
         ConvertMap3 convertMap3 = new ConvertMap3();
-        List<String> stage = new ArrayList<>();
+        List<String> stage;
         String[][] encryptTemp;
         int startIndex = 0;
-        int breakLineIndex = 0;
+        int breakLineIndex;
         for (int i = 0; i < readFile.size(); i++) {
             if (readFile.get(i).contains("=")) {
                 breakLineIndex = i;

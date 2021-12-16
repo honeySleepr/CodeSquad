@@ -18,7 +18,7 @@ public class ConvertMap3 {
         for (int i = 0; i < stage.size() - 1; i++) {
             String[] rows = stage.get(i + 1).split("");
             for (int j = 0; j < rows.length; j++) {
-
+                /*HashMap으로 해보자*/
                 switch (rows[j]) {
                     case "#":
                         encryptTemp[i][j] = "0";

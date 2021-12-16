@@ -27,14 +27,12 @@ public class CreateGame {
 
     private void readConsole() {
         List<String> readConsole = new ArrayList<>();
-        System.out.println("맵 입력 후 go + Enter 입력");
-        InputStreamReader reader = new InputStreamReader(System.in);
-        BufferedReader input = new BufferedReader(reader);
-        String s = "";
+        System.out.println("맵 입력 후 빈 줄에 Enter 입력");
+        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
-        while (!s.equals("go")) {
+        while (!readConsole.contains("")) {
             try {
-                s = input.readLine();
+                String s = input.readLine();
                 readConsole.add(s);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -60,12 +58,7 @@ public class CreateGame {
 
     private void chooseOption() {
         DisplayContent displayContent = new DisplayContent();
-        Scanner sc = new Scanner(System.in);
-        String menu = "";
-        while (!(menu.equals("1")) && !(menu.equals("2"))) {
-            System.out.print("미션 단계를 입력하세요 [ 1 또는 2 ] \n> ");
-            menu = sc.nextLine();
-        }
+        String menu = checkInput();
         if (menu.equals("1")) {
             displayContent.printMapAndInfo(stage1, encrypt1);
             displayContent.printMapAndInfo(stage2, encrypt2);
@@ -75,10 +68,6 @@ public class CreateGame {
             displayContent.printMap(convertMap.decryptMap(encrypt2));
             new Control(encrypt2);
         }
-        if (menu.equals("3")) {
-            new CreateGame3();
-        }
-        sc.close();
     }
 
     private String[][] make2DArray(List<String> stage) {
@@ -96,5 +85,15 @@ public class CreateGame {
             Arrays.fill(s, "");
         }
         return encrypt;
+    }
+
+   private String checkInput(){
+        Scanner sc = new Scanner(System.in);
+        String menu = "";
+        while (!(menu.equals("1")) && !(menu.equals("2"))) {
+            System.out.print("미션 단계를 입력하세요 [ 1 또는 2 ] \n> ");
+            menu = sc.nextLine();
+        }
+        return menu;
     }
 }
