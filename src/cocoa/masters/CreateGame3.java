@@ -8,8 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CreateGame3 {
-    List<String[][]> encryptedMapList = new ArrayList<>();
-    String[][] tempMap;
+    private List<String[][]> encryptedMapList = new ArrayList<>();
+    private String[][] tempMap;
 
     CreateGame3() {
         readFromFile();

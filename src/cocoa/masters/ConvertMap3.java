@@ -1,10 +1,20 @@
 package cocoa.masters;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class ConvertMap3 {
+    private HashMap<String, String> encrypt = new HashMap<>();
+    private HashMap<String, String> decrypt = new HashMap<>();
+
     ConvertMap3() {
+        encrypt.put("#","0");
+        encrypt.put("O","1");
+        encrypt.put("o","2");
+        encrypt.put("P","3");
+        encrypt.put("=","4");
+        encrypt.put("0","6");
     }
 
     ConvertMap3(String[][] encrypt) {
