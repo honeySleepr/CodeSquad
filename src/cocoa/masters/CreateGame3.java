@@ -63,7 +63,7 @@ public class CreateGame3 {
         BufferedReader input;
         List<String> readFile = new ArrayList<>();
         try {
-            input = new BufferedReader(new FileReader("src/cocoa/masters/Map.txt"));
+            input = new BufferedReader(new FileReader("src/cocoa/masters/Map2.txt"));
             StringBuilder stringBuilder = new StringBuilder();
             String line = input.readLine();
 
