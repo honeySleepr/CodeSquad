@@ -73,7 +73,7 @@ public class CreateGame3 {
                 line = input.readLine();
             }
             input.close();
-            readFile = Arrays.asList(stringBuilder.toString().split("\\n"));
+            readFile = Arrays.asList(stringBuilder.toString().split("\\n")); /* 맥에서도 \\r 읽히는지 확인*/
         } catch (IOException e) {
             e.printStackTrace();
         }
