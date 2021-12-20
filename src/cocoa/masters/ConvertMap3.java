@@ -9,6 +9,7 @@ public class ConvertMap3 {
     private HashMap<String, String> decrypt = new HashMap<>();
 
     ConvertMap3() {
+         /* HashMap에 한번만 입력되도록 setMap() 을 만들어 써볼까*/
         encrypt.put("#","0");
         encrypt.put("O","1");
         encrypt.put("o","2");
