@@ -100,7 +100,7 @@ public class ConvertMap3 {
                 maxWidth = stage.get(i).length();
             }
         }
-        String[][] encrypt = new String[maxHeight][maxWidth-1];
+        String[][] encrypt = new String[maxHeight][maxWidth];
 
         for (String[] s : encrypt) {
             Arrays.fill(s, "");

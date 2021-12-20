@@ -63,17 +63,17 @@ public class CreateGame3 {
         BufferedReader input;
         List<String> readFile = new ArrayList<>();
         try {
-            input = new BufferedReader(new FileReader("src/cocoa/masters/Map2.txt"));
+            input = new BufferedReader(new FileReader("src/cocoa/masters/Map.txt"));
             StringBuilder stringBuilder = new StringBuilder();
             String line = input.readLine();
 
             while (line != null) {
                 stringBuilder.append(line);
-                stringBuilder.append(System.lineSeparator());
+                stringBuilder.append("\n"); /* System.lineSeparator() 때문에.. 개행할 때 마다 \r\n 가 추가되고 있는거였다.. 메모장, IntelliJ, 또는 Git 문제인줄 알고 몇시간을...... */
                 line = input.readLine();
             }
             input.close();
-            readFile = Arrays.asList(stringBuilder.toString().split("\\n")); /* 맥에서도 \\r 읽히는지 확인*/
+            readFile = Arrays.asList(stringBuilder.toString().split("\\n"));
         } catch (IOException e) {
             e.printStackTrace();
         }
