@@ -40,12 +40,10 @@ public class CreateGame3 {
     }
 
     private Control3 showMap(int level) {
-        ConvertMap3 convertMap3 = new ConvertMap3();
-        DisplayContent displayContent = new DisplayContent();
-        tempMap = saveTemp(encryptedMapList.get(level));
 
+        tempMap = saveTemp(encryptedMapList.get(level));
         System.out.println("Stage " + (level + 1) + " / " + encryptedMapList.size());
-        displayContent.printMap(convertMap3.decryptMap3(tempMap));
+        new ConvertMap3(tempMap);
         return new Control3(tempMap);
     }
 
@@ -82,7 +80,6 @@ public class CreateGame3 {
 
     private void createMapInfo(List<String> readFile) {
         ConvertMap3 convertMap3 = new ConvertMap3();
-        convertMap3.setHash();
         List<String> stage;
         String[][] encryptTemp;
         int startIndex = 0;

@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Control3 {
-    private String[][] encryptedMap;
+    private final String[][] encryptedMap;
     int turnCount;
     boolean quit = false;
 

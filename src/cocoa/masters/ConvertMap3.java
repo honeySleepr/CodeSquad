@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 public class ConvertMap3 {
-    static Map<String, String> encryptHash;
-    static Map<String, String> decryptHash;
+    static private Map<String, String> encryptHash;
+    static private Map<String, String> decryptHash;
 
     ConvertMap3() {
+        setHash();
     }
 
     ConvertMap3(String[][] encrypt) {
@@ -45,7 +46,7 @@ public class ConvertMap3 {
             String[] rows = stage.get(i + 1).split("");
             for (int j = 0; j < rows.length; j++) {
                 /*HashMap으로 해보자*/
-                encryptTemp[i][j] = encryptHash.get(rows[j]);
+                encryptTemp[i][j] = ConvertMap3.encryptHash.get(rows[j]);
             }
         }
         return encryptTemp;
@@ -58,7 +59,7 @@ public class ConvertMap3 {
         }
         for (int i = 0; i < encrypt.length; i++) {
             for (int j = 0; j < encrypt[0].length; j++) {
-                decryptedMap[i][j] = decryptHash.get(encrypt[i][j]);
+                decryptedMap[i][j] = ConvertMap3.decryptHash.get(encrypt[i][j]);
             }
         }
         return decryptedMap;
