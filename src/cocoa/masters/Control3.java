@@ -146,13 +146,13 @@ public class Control3 {
     }
 
     private void pushBallVertical(int x1, int y1, int x2, int y2, int dX, String x2y2Value) {
-        if (encryptedMap[dX][y2].equals("")) {
+        if (encryptedMap[dX][y2].equals(" ")) {
             encryptedMap[dX][y2] = "2";
             encryptedMap[x2][y2] = x2y2Value;
             if (encryptedMap[x1][y1].equals("5")) {
                 encryptedMap[x1][y1] = "1";
             } else {
-                encryptedMap[x1][y1] = "";
+                encryptedMap[x1][y1] = " ";
             }
             return;
         }
@@ -162,7 +162,7 @@ public class Control3 {
             if (encryptedMap[x1][y1].equals("5")) {
                 encryptedMap[x1][y1] = "1";
             } else {
-                encryptedMap[x1][y1] = "";
+                encryptedMap[x1][y1] = " ";
             }
         } else {
             System.out.println("길이 막혀있어 밀 수 없습니다");
@@ -170,13 +170,13 @@ public class Control3 {
     }
 
     private void pushBallHorizontal(int x1, int y1, int x2, int y2, int dY, String x2y2Value) {
-        if (encryptedMap[x2][dY].equals("")) {
+        if (encryptedMap[x2][dY].equals(" ")) {
             encryptedMap[x2][dY] = "2";
             encryptedMap[x2][y2] = x2y2Value;
             if (encryptedMap[x1][y1].equals("5")) {
                 encryptedMap[x1][y1] = "1";
             } else {
-                encryptedMap[x1][y1] = "";
+                encryptedMap[x1][y1] = " ";
             }
             return;
         }
@@ -186,7 +186,7 @@ public class Control3 {
             if (encryptedMap[x1][y1].equals("5")) {
                 encryptedMap[x1][y1] = "1";
             } else {
-                encryptedMap[x1][y1] = "";
+                encryptedMap[x1][y1] = " ";
             }
         } else {
             System.out.println("길이 막혀있어 밀 수 없습니다");
@@ -205,12 +205,12 @@ public class Control3 {
     }
 
     private void emptySpaceLogic(int x1, int y1, int x2, int y2) {
-        if (encryptedMap[x2][y2].equals("")) {
+        if (encryptedMap[x2][y2].equals(" ")) {
             encryptedMap[x2][y2] = "3";
             if (encryptedMap[x1][y1].equals("5")) {
                 encryptedMap[x1][y1] = "1";
             } else {
-                encryptedMap[x1][y1] = "";
+                encryptedMap[x1][y1] = " ";
             }
         }
     }
@@ -221,7 +221,7 @@ public class Control3 {
             if (encryptedMap[x1][y1].equals("5")) {
                 encryptedMap[x1][y1] = "1";
             } else {
-                encryptedMap[x1][y1] = "";
+                encryptedMap[x1][y1] = " ";
             }
         }
     }

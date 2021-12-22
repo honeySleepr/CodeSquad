@@ -67,6 +67,7 @@ public class DisplayContent {
                 if (encrypt[i][j].equals("3")||encrypt[i][j].equals("5")) {
                     coordP[0] = i ;
                     coordP[1] = j;
+                    return coordP; /* P 찾았으면 바로 빠져나오기*/
                 }
             }
         }

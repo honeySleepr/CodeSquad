@@ -112,10 +112,10 @@ public class Control {
     }
 
     private void makeMove(int x1, int y1, int x2, int y2, String[][] encrypt) {
-        if (encrypt[x2][y2].equals("")) {
+        if (encrypt[x2][y2].equals(" ")) {
             System.out.println("이동합니다");
             encrypt[x2][y2] = encrypt[x1][y1];
-            encrypt[x1][y1] = "";
+            encrypt[x1][y1] = " ";
         } else {
             System.out.println("해당 명령을 수행할 수 없습니다");
         }
