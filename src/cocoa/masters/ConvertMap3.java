@@ -7,11 +7,11 @@ import java.util.Map;
 public class ConvertMap3 {
     static private Map<String, String> encryptHash;
     static private Map<String, String> decryptHash;
-
+/* Singleton 활용해서 setHash 한번 실행하고 ConverMap3 객체 하나만 계속 돌려 쓰기?*/
     ConvertMap3() {
         setHash();
     }
-
+/* 그럼 아래 생성자 없애고 만들 수 있지 않을까? */
     ConvertMap3(String[][] encrypt) {
         DisplayContent display = new DisplayContent();
         display.printMap(decryptMap3(encrypt));
@@ -46,7 +46,7 @@ public class ConvertMap3 {
             String[] rows = stage.get(i + 1).split("");
             for (int j = 0; j < rows.length; j++) {
                 /*HashMap으로 해보자*/
-                encryptTemp[i][j] = ConvertMap3.encryptHash.get(rows[j]);
+                encryptTemp[i][j] = encryptHash.get(rows[j]);
             }
         }
         return encryptTemp;
@@ -59,7 +59,7 @@ public class ConvertMap3 {
         }
         for (int i = 0; i < encrypt.length; i++) {
             for (int j = 0; j < encrypt[0].length; j++) {
-                decryptedMap[i][j] = ConvertMap3.decryptHash.get(encrypt[i][j]);
+                decryptedMap[i][j] = decryptHash.get(encrypt[i][j]);
             }
         }
         return decryptedMap;
