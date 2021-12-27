@@ -66,7 +66,7 @@ public class Control3 {
                 default:
                     break;
             }
-            new ConvertMap3(encryptedMap); //print updated map
+            ConvertMap3.getInstance().displayMap(encryptedMap); //print updated map
         }
     }
 

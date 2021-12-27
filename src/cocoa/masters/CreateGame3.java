@@ -43,7 +43,7 @@ public class CreateGame3 {
 
         tempMap = saveTemp(encryptedMapList.get(level));
         System.out.println("Stage " + (level + 1) + " / " + encryptedMapList.size());
-        new ConvertMap3(tempMap);
+        ConvertMap3.getInstance().displayMap(tempMap);
         return new Control3(tempMap);
     }
 
@@ -79,7 +79,7 @@ public class CreateGame3 {
     }
 
     private void createMapInfo(List<String> readFile) {
-        ConvertMap3 convertMap3 = new ConvertMap3();
+        ConvertMap3 convertMap3 = ConvertMap3.getInstance();
         List<String> stage;
         String[][] encryptTemp;
         int startIndex = 0;

@@ -5,19 +5,28 @@ import java.util.List;
 import java.util.Map;
 
 public class ConvertMap3 {
-    static private Map<String, String> encryptHash;
-    static private Map<String, String> decryptHash;
-/* Singleton 활용해서 setHash 한번 실행하고 ConverMap3 객체 하나만 계속 돌려 쓰기?*/
-    ConvertMap3() {
+    private Map<String, String> encryptHash;
+    private Map<String, String> decryptHash;
+    private static ConvertMap3 convertMap3 = null;
+
+    /* Singleton 활용해서 setHash 한번 실행하고 ConverMap3 객체 하나만 계속 돌려 쓰기?*/
+    private ConvertMap3() {
         setHash();
     }
-/* 그럼 아래 생성자 없애고 만들 수 있지 않을까? */
-    ConvertMap3(String[][] encrypt) {
+
+    public static ConvertMap3 getInstance() {
+        if (convertMap3 == null) {
+            convertMap3 = new ConvertMap3();
+        }
+        return convertMap3;
+    }
+
+    public void displayMap(String[][] encrypt) {
         DisplayContent display = new DisplayContent();
         display.printMap(decryptMap3(encrypt));
     }
 
-    public void setHash(){
+    public void setHash() {
         encryptHash = Map.of(
                 "#", "0",
                 "O", "1",
@@ -28,7 +37,7 @@ public class ConvertMap3 {
                 " ", " "
 
         );
-        decryptHash= Map.of(
+        decryptHash = Map.of(
                 "0", "#",
                 "1", "O",
                 "2", "o",
@@ -39,6 +48,7 @@ public class ConvertMap3 {
                 " ", " "
         );
     }
+
     public String[][] encryptMap3(List<String> stage) {
 
         String[][] encryptTemp = make2DArray3(stage);
