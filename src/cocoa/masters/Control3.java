@@ -48,20 +48,21 @@ public class Control3 {
     }
 
     private void inputCommand(ArrayList<Character> commandArray) {
+        DisplayContent display = new DisplayContent();
         for (Character c : commandArray) {
             turnCount++;
             switch (c) {
                 case 'w':
-                    moveUp();
+                    moveUp(display);
                     break;
                 case 's':
-                    moveDown();
+                    moveDown(display);
                     break;
                 case 'a':
-                    moveLeft();
+                    moveLeft(display);
                     break;
                 case 'd':
-                    moveRight();
+                    moveRight(display);
                     break;
                 default:
                     break;
@@ -70,8 +71,7 @@ public class Control3 {
         }
     }
 
-    private void moveUp() {
-        DisplayContent display = new DisplayContent();
+    private void moveUp(DisplayContent display) {
         int[] current = display.findPlayer(encryptedMap);
 
         int x1 = current[0];
@@ -81,8 +81,7 @@ public class Control3 {
         makeMove(x1, y1, x2, y2);
     }
 
-    private void moveDown() {
-        DisplayContent display = new DisplayContent();
+    private void moveDown(DisplayContent display) {
         int[] current = display.findPlayer(encryptedMap);
 
         int x1 = current[0];
@@ -92,8 +91,7 @@ public class Control3 {
         makeMove(x1, y1, x2, y2);
     }
 
-    private void moveLeft() {
-        DisplayContent display = new DisplayContent();
+    private void moveLeft(DisplayContent display) {
         int[] current = display.findPlayer(encryptedMap);
 
         int x1 = current[0];
@@ -103,8 +101,7 @@ public class Control3 {
         makeMove(x1, y1, x2, y2);
     }
 
-    private void moveRight() {
-        DisplayContent display = new DisplayContent();
+    private void moveRight(DisplayContent display) {
         int[] current = display.findPlayer(encryptedMap);
 
         int x1 = current[0];

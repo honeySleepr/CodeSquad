@@ -18,7 +18,7 @@ public class CreateGame3 {
 
     private void play() {
         System.out.println("소코반 게임을 시작합니다!");
-        for (int level = 0; level < encryptedMapList.size(); level++) {/**/
+        for (int level = 0; level < encryptedMapList.size(); level++) {
             Control3 control3 = showMap(level);
             if (control3.quit) {
                 System.out.print("Bye~");

@@ -9,7 +9,7 @@ public class ConvertMap3 {
     private Map<String, String> decryptHash;
     private static ConvertMap3 convertMap3 = null;
 
-    /* Singleton 활용해서 setHash 한번 실행하고 ConverMap3 객체 하나만 계속 돌려 쓰기?*/
+    /* Singleton 활용해서 setHash 한번 실행하고 ConverMap3 객체 하나만 계속 돌려 쓰기*/
     private ConvertMap3() {
         setHash();
     }
