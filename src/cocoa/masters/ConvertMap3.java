@@ -9,7 +9,7 @@ public class ConvertMap3 {
 	private Map<String, String> decryptHash;
 	private static ConvertMap3 convertMap3 = null;
 
-	/* Singleton 활용해서 setHash 한번 실행하고 ConverMap3 객체 하나만 계속 돌려 쓰기*/
+	/* Singleton 활용해서 setHash 한번 실행하고 ConvertMap3 객체 하나만 계속 돌려 쓰기*/
 	private ConvertMap3() {
 		setHash();
 	}
@@ -52,10 +52,10 @@ public class ConvertMap3 {
 	public String[][] encryptMap3(List<String> stage) {
 
 		String[][] encryptTemp = make2DArray3(stage);
-		for (int i = 0; i < stage.size() - 1; i++) {    // encrypt에는 "Stage X" 가 포함 안되기 때문에 size()-1
+		for (int i = 0; i < stage.size() - 1; i++) {    // encrypt 에는 "Stage X" 가 포함 안되기 때문에 size()-1
 			String[] rows = stage.get(i + 1).split("");
 			for (int j = 0; j < rows.length; j++) {
-				/*HashMap으로 해보자*/
+				/*HashMap 으로 해보자*/
 				encryptTemp[i][j] = encryptHash.get(rows[j]);
 			}
 		}

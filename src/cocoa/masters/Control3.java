@@ -121,11 +121,11 @@ public class Control3 {
 	}
 
 	private void pushBall(int x1, int y1, int x2, int y2, String x2y2Value) {
-		String d = getDirection(x1, y1, x2, y2);
-		if (d.equals("vertical")) {
+		String direction = getDirection(x1, y1, x2, y2);
+		if (direction.equals("vertical")) {
 			pushBallVertical(x1, y1, x2, y2, x2 + (x2 - x1), x2y2Value);
 		}
-		if (d.equals("horizontal")) {
+		if (direction.equals("horizontal")) {
 			pushBallHorizontal(x1, y1, x2, y2, y2 + (y2 - y1), x2y2Value);
 		}
 	}
