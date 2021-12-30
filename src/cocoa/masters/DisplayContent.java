@@ -6,15 +6,10 @@ import java.util.List;
 public class DisplayContent {
 	void printMapAndInfo(List<String> stage, String[][] encrypt) {
 		System.out.println("\n" + stage.get(0) + "\n");
-		for (String s : stage) {
-			if (s.contains("=")) {
-				break;
-			}
-			if (s.contains("Stage")) {
-				continue;
-			}
-			System.out.println(s);
-		}
+		stage.stream()
+			.takeWhile(s -> !s.contains("="))
+			.filter(s -> !s.contains("Stage"))
+			.forEach(System.out::println);
 		System.out.println("\n가로크기 : " + encrypt[0].length);
 		if (Arrays.asList(encrypt[encrypt.length - 1]).contains("4")) {
 			System.out.println("세로크기 : " + (encrypt.length - 1));
